@@ -16,8 +16,6 @@
 }
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
 h1,h2,h3,.serif{font-family:'Fraunces',serif}
-
-/* HEADER BAR */
 .topbar{background:var(--navy);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
 .topbar .logo{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:14px;letter-spacing:.5px;text-transform:uppercase}
 .topbar .logo .bars{display:flex;flex-direction:column;gap:3px;background:var(--orange);padding:6px 8px;border-radius:4px}
@@ -25,22 +23,14 @@ h1,h2,h3,.serif{font-family:'Fraunces',serif}
 .topbar .tool-name{color:#fff;font-size:16px;font-weight:600;display:flex;align-items:center;gap:8px}
 .topbar .back-link{color:rgba(255,255,255,.6);font-size:13px;text-decoration:none;transition:color .2s}
 .topbar .back-link:hover{color:#fff}
-
-/* HERO */
 .hero{background:linear-gradient(180deg,var(--navy) 0%,var(--navy-light) 100%);text-align:center;padding:40px 20px 48px;color:#fff}
 .hero .badge{display:inline-block;background:var(--teal);color:#fff;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 18px;border-radius:20px;margin-bottom:16px}
 .hero h1{font-size:clamp(28px,5vw,40px);margin-bottom:8px}
 .hero h1 .emoji{font-style:normal}
 .hero p{color:rgba(255,255,255,.7);font-size:14px;max-width:600px;margin:0 auto}
-
-/* MAIN CONTENT */
 .main{max-width:1100px;margin:0 auto;padding:32px 20px 60px}
-
-/* TWO COL LAYOUT */
 .two-col{display:grid;grid-template-columns:420px 1fr;gap:24px;align-items:start}
 @media(max-width:860px){.two-col{grid-template-columns:1fr}}
-
-/* LEFT PANEL - INPUTS */
 .panel{background:var(--card);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);border:1px solid var(--border)}
 .panel-title{font-size:18px;font-weight:700;margin-bottom:20px}
 .form-group{margin-bottom:18px}
@@ -52,19 +42,13 @@ select.form-input{appearance:none;background:#FAFBFC url("data:image/svg+xml,%3C
 .form-hint{font-size:11px;color:var(--sub);margin-top:4px}
 .input-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:500px){.input-row{grid-template-columns:1fr}}
-
-/* SLIDER */
 input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:3px;background:var(--border);outline:none;margin:8px 0 4px}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--orange);cursor:pointer;border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2)}
 .range-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--sub)}
-
-/* PRESETS */
 .presets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
 .preset-btn{padding:7px 14px;border:1px solid var(--border);border-radius:6px;background:var(--card);font-size:12px;font-family:inherit;cursor:pointer;transition:all .15s;font-weight:500}
 .preset-btn:hover{border-color:var(--teal);color:var(--teal)}
 .preset-btn.active{background:var(--teal);color:#fff;border-color:var(--teal)}
-
-/* DEBT LIST */
 .debt-item{background:#FAFBFC;border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:10px;position:relative}
 .debt-item .debt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .debt-item .debt-grid.three{grid-template-columns:1fr 1fr 1fr}
@@ -77,12 +61,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .btn-remove-debt:hover{background:#FDECEA;color:var(--red)}
 .btn-add{display:flex;align-items:center;gap:6px;background:none;border:1px dashed var(--border);border-radius:8px;padding:10px;width:100%;font-size:13px;color:var(--teal);cursor:pointer;font-family:inherit;justify-content:center;transition:all .15s;margin-top:4px}
 .btn-add:hover{background:#E8F5EE;border-color:var(--teal)}
-
-/* CALCULATE BUTTON */
 .btn-calc{display:block;width:100%;padding:15px;background:var(--orange);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .2s;margin-top:20px}
 .btn-calc:hover{background:var(--orange-dark);transform:translateY(-1px)}
-
-/* RIGHT PANEL - RESULTS */
 .results-col{display:flex;flex-direction:column;gap:16px}
 .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .stat-card{border-radius:var(--radius);padding:18px 16px}
@@ -92,14 +72,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .stat-card .label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;opacity:.8}
 .stat-card .value{font-family:'Fraunces',serif;font-size:clamp(22px,3vw,28px);font-weight:700;margin-top:4px}
 .stat-card .detail{font-size:12px;opacity:.7;margin-top:2px}
-
-/* WINNER BADGE */
 .method-toggle{display:flex;gap:2px;background:var(--border);border-radius:8px;padding:2px;margin-bottom:12px}
 .method-toggle button{flex:1;padding:10px;border:none;border-radius:6px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .15s;background:transparent;color:var(--sub)}
 .method-toggle button.active{background:var(--card);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.1)}
 .method-toggle button.winner::after{content:" ✓";color:var(--teal);font-weight:700}
-
-/* CHART */
 .chart-panel{background:var(--card);border-radius:var(--radius);padding:20px;border:1px solid var(--border);box-shadow:var(--shadow)}
 .chart-title{font-size:16px;font-weight:700;margin-bottom:16px}
 .chart-area{display:flex;align-items:flex-end;gap:3px;height:200px}
@@ -111,8 +87,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .chart-legend{display:flex;gap:16px;margin-top:12px;font-size:12px;color:var(--sub)}
 .chart-legend span{display:flex;align-items:center;gap:5px}
 .chart-legend .dot{width:12px;height:12px;border-radius:2px}
-
-/* AMORTIZATION TABLE */
 .amort-panel{background:var(--card);border-radius:var(--radius);padding:20px;border:1px solid var(--border);box-shadow:var(--shadow)}
 .amort-panel h3{font-size:16px;font-weight:700;margin-bottom:12px}
 .amort-table{width:100%;border-collapse:collapse;font-size:13px}
@@ -122,8 +96,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .amort-table .red{color:var(--red)}
 .amort-table .green{color:var(--teal);font-weight:600}
 .amort-scroll{max-height:320px;overflow-y:auto}
-
-/* MILESTONE STRIP */
 .milestone-strip{display:flex;flex-direction:column;gap:8px}
 .ms-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#FAFBFC;border-radius:8px;border:1px solid var(--border);font-size:13px}
 .ms-item .ms-icon{font-size:20px;flex-shrink:0}
@@ -131,15 +103,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .ms-item .ms-date{color:var(--sub);font-size:12px}
 .ms-item.final{background:#E8F5EE;border-color:#A8D5BA}
 .ms-item.final .ms-name{color:var(--teal)}
-
-/* STRATEGY BOX */
 .strategy-box{background:linear-gradient(135deg,#EBF0FA,#F0E8FB);border:1px solid #D0C4E8;border-radius:var(--radius);padding:20px;margin-top:8px}
 .strategy-box h3{color:#4A3578;font-size:16px;margin-bottom:10px}
 .strategy-box ol{padding-left:18px;font-size:13px;color:#3A2963}
 .strategy-box ol li{margin-bottom:8px;line-height:1.5}
 .strategy-box ol li strong{color:#4A3578}
-
-/* BUDGET SNAPSHOT */
 .budget-snap{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
 .budget-row{display:flex;justify-content:space-between;font-size:13px;padding:3px 0}
 .budget-row.total{border-top:1px solid var(--border);margin-top:6px;padding-top:8px;font-weight:700;font-size:14px}
@@ -149,8 +117,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .budget-legend{display:flex;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--sub)}
 .budget-legend span{display:flex;align-items:center;gap:4px}
 .budget-legend .dot{width:8px;height:8px;border-radius:2px}
-
-/* HOW IT WORKS */
 .how-section{max-width:1100px;margin:48px auto 0;padding:0 20px}
 .how-section h2{text-align:center;font-size:24px;margin-bottom:24px}
 .how-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -159,8 +125,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .how-card .num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:var(--teal);color:#fff;font-size:13px;font-weight:700;margin-bottom:10px}
 .how-card h3{font-size:15px;font-weight:700;margin-bottom:6px}
 .how-card p{font-size:13px;color:var(--sub);line-height:1.5}
-
-/* FAQ */
 .faq-section{max-width:1100px;margin:48px auto 0;padding:0 20px}
 .faq-section h2{text-align:center;font-size:24px;margin-bottom:24px}
 .faq-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden}
@@ -169,8 +133,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .faq-item.open .faq-q::before{transform:rotate(180deg)}
 .faq-a{padding:0 20px 16px;font-size:13px;color:var(--sub);line-height:1.6;display:none}
 .faq-item.open .faq-a{display:block}
-
-/* RELATED TOOLS */
 .related-section{max-width:1100px;margin:48px auto 0;padding:0 20px}
 .related-section h2{font-size:24px;margin-bottom:20px}
 .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -180,46 +142,31 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .related-card .icon{font-size:28px;margin-bottom:8px}
 .related-card h3{font-size:15px;font-weight:700;margin-bottom:4px}
 .related-card p{font-size:12px;color:var(--sub)}
-
-/* EXPORT */
 .export-row{display:flex;gap:8px;margin-top:12px}
 .btn-sm{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;cursor:pointer;background:var(--card);color:var(--text);transition:all .15s}
 .btn-sm:hover{border-color:var(--teal);color:var(--teal)}
-
-/* FOOTER */
 footer{text-align:center;padding:40px 20px;font-size:12px;color:var(--sub);border-top:1px solid var(--border);margin-top:48px;max-width:1100px;margin-left:auto;margin-right:auto}
-
-/* QUOTE */
 .quote{text-align:center;padding:24px;margin-top:16px}
 .quote .q{font-family:'Fraunces',serif;font-size:16px;font-style:italic;color:var(--orange)}
 .quote .a{font-size:11px;color:var(--sub);margin-top:4px}
-
-/* HIDE/SHOW */
 .hidden{display:none!important}
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
 <div class="topbar">
-  <div class="logo">
-    <div class="bars"><span></span><span></span><span></span></div>
-    UTANG FREE PH
-  </div>
+  <div class="logo"><div class="bars"><span></span><span></span><span></span></div>UTANG FREE PH</div>
   <div class="tool-name">Utang Free PH</div>
   <a href="#" class="back-link">&larr; All Tools</a>
 </div>
 
-<!-- HERO -->
 <div class="hero">
   <div class="badge">Philippine Debt Payoff Calculator</div>
   <h1>Utang Free PH <span class="emoji">&#128176;</span></h1>
   <p>Simulate &middot; Compare Avalanche vs Snowball &middot; Download Excel Tracker &middot; Get your debt-free date</p>
 </div>
 
-<!-- MAIN -->
 <div class="main">
-  <!-- INTRO -->
   <div style="text-align:center;max-width:700px;margin:0 auto 32px">
     <h2 style="font-size:22px;margin-bottom:8px">Philippine Debt Payoff Calculator & Tracker</h2>
     <p style="font-size:14px;color:var(--sub)">Tired of wondering where your money goes? Utang Free PH is the only Filipino debt calculator that does it all — enter your gross salary, we auto-deduct your SSS, PhilHealth, Pag-IBIG, and tax, then show exactly how much you can throw at your BDO, BPI, GCash GCredit, or Pag-IBIG loans every month.</p>
@@ -228,9 +175,7 @@ footer{text-align:center;padding:40px 20px;font-size:12px;color:var(--sub);borde
   </div>
 
   <div class="two-col">
-    <!-- LEFT: INPUTS -->
     <div>
-      <!-- SALARY -->
       <div class="panel" style="margin-bottom:16px">
         <div class="panel-title">Your Income</div>
         <div class="form-group">
@@ -252,7 +197,6 @@ footer{text-align:center;padding:40px 20px;font-size:12px;color:var(--sub);borde
         <div id="budgetArea"></div>
       </div>
 
-      <!-- DEBTS -->
       <div class="panel">
         <div class="panel-title">Your Debts</div>
         <div class="presets" id="quickPresets">
@@ -276,19 +220,14 @@ footer{text-align:center;padding:40px 20px;font-size:12px;color:var(--sub);borde
                 <option value="9">October</option><option value="10">November</option><option value="11">December</option>
               </select>
             </div>
-            <div>
-              <select class="form-input" id="startYear">
-              </select>
-            </div>
+            <div><select class="form-input" id="startYear"></select></div>
           </div>
           <div class="form-hint">Your first payment month. Milestones and debt-free dates will use this as the starting point.</div>
         </div>
-
         <button class="btn-calc" onclick="calculate()">Calculate Payoff Plan</button>
       </div>
     </div>
 
-    <!-- RIGHT: RESULTS -->
     <div class="results-col" id="resultsCol">
       <div id="resultPlaceholder" style="text-align:center;padding:60px 20px;color:var(--sub)">
         <div style="font-size:48px;margin-bottom:12px">&#128200;</div>
@@ -300,34 +239,16 @@ footer{text-align:center;padding:40px 20px;font-size:12px;color:var(--sub);borde
   </div>
 </div>
 
-<!-- HOW IT WORKS -->
 <div class="how-section">
   <h2>How the Debt Payoff Calculator Works</h2>
   <div class="how-grid">
-    <div class="how-card">
-      <div class="num">1</div>
-      <h3>Enter Your Income</h3>
-      <p>Input your monthly salary, rent, and essentials. We auto-compute your SSS, PhilHealth, Pag-IBIG, and tax deductions to determine your real available budget for debt payoff.</p>
-    </div>
-    <div class="how-card">
-      <div class="num">2</div>
-      <h3>Add Your Debts</h3>
-      <p>List each debt with its balance and minimum payment. Choose from preset rates for Philippine banks (BDO, BPI, Metrobank), digital lenders (GCash, Maya, BillEase), or government loans (SSS, Pag-IBIG).</p>
-    </div>
-    <div class="how-card">
-      <div class="num">3</div>
-      <h3>Compare Methods</h3>
-      <p>See side-by-side results for Avalanche (highest interest first) vs Snowball (smallest balance first). The calculator shows which saves more money and which gives faster emotional wins.</p>
-    </div>
-    <div class="how-card">
-      <div class="num">4</div>
-      <h3>Get Your Strategy</h3>
-      <p>Receive a personalized payoff plan with milestone dates, payment priorities, and actionable tips — including when to consider balance transfers and how to build an emergency fund alongside debt payoff.</p>
-    </div>
+    <div class="how-card"><div class="num">1</div><h3>Enter Your Income</h3><p>Input your monthly salary, rent, and essentials. We auto-compute your SSS, PhilHealth, Pag-IBIG, and tax deductions to determine your real available budget for debt payoff.</p></div>
+    <div class="how-card"><div class="num">2</div><h3>Add Your Debts</h3><p>List each debt with its balance and minimum payment. Choose from preset rates for Philippine banks (BDO, BPI, Metrobank), digital lenders (GCash, Maya, BillEase), or government loans (SSS, Pag-IBIG).</p></div>
+    <div class="how-card"><div class="num">3</div><h3>Compare Methods</h3><p>See side-by-side results for Avalanche (highest interest first) vs Snowball (smallest balance first). The calculator shows which saves more money and which gives faster emotional wins.</p></div>
+    <div class="how-card"><div class="num">4</div><h3>Get Your Strategy</h3><p>Receive a personalized payoff plan with milestone dates, payment priorities, and actionable tips — including when to consider balance transfers and how to build an emergency fund alongside debt payoff.</p></div>
   </div>
 </div>
 
-<!-- FAQ -->
 <div class="faq-section">
   <h2>Frequently Asked Questions</h2>
   <div class="faq-item open" onclick="this.classList.toggle('open')">
@@ -357,7 +278,8 @@ footer{text-align:center;padding:40px 20px;font-size:12px;color:var(--sub);borde
   <p style="margin-top:6px">Utang Free PH — Built for Filipinos. All data stays in your browser.</p>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<!-- CHANGED: ExcelJS instead of SheetJS for full style/formula/conditional formatting support -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
 <script>
 const P={
   custom:{l:'Custom rate',r:2.0},bdo:{l:'BDO Credit Card',r:2.0},bpi:{l:'BPI Credit Card',r:1.85},
@@ -387,7 +309,6 @@ function fDateShort(months){
   return s.toLocaleDateString('en-PH',{month:'short',year:'numeric'});
 }
 
-// Populate start date dropdowns
 (function initStartDate(){
   const now=new Date();
   $('startMonth').value=now.getMonth();
@@ -411,7 +332,6 @@ function calcDed(g){
   return{sss:Math.round(sss),ph:Math.round(ph),pi:Math.round(pi),tax:Math.round(tax),net:Math.round(g-sss-ph-pi-tax)};
 }
 
-// Budget display
 ['salary','rent','essentials'].forEach(id=>$(id).addEventListener('input',showBudget));
 function showBudget(){
   const g=parseFloat($('salary').value)||0;
@@ -442,7 +362,6 @@ function showBudget(){
   $('budgetArea').innerHTML=h;
 }
 
-// Debts
 function addDebt(n='',b='',p='bdo',m=''){
   const id=did++;
   const div=document.createElement('div');div.className='debt-item';div.id='d'+id;
@@ -471,7 +390,6 @@ function getDebts(){
   return ds;
 }
 
-// Simulate
 function sim(debts,extra,method){
   let b=debts.map(d=>({...d,rem:d.balance,tInt:0,tPaid:0,poMonth:0}));
   const sch=[];let mo=0;
@@ -488,7 +406,6 @@ function sim(debts,extra,method){
   return{months:mo,tInt:Math.round(b.reduce((s,d)=>s+d.tInt,0)),tPaid:Math.round(b.reduce((s,d)=>s+d.tPaid,0)),sch,po:b.map(d=>({name:d.name,month:d.poMonth}))};
 }
 
-// Calculate
 function calculate(){
   const debts=getDebts();
   if(!debts.length){alert('Add at least one debt with balance and minimum payment.');return;}
@@ -507,17 +424,12 @@ function calculate(){
   const reqSalary=Math.round((tMin+extra)*3);
 
   let h='';
-
-  // Warning if no extra payment or methods identical
   if(extra<=0){
-    h+=`<div style="background:#FFF7E6;border:1px solid #F0D9A0;border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;font-size:13px;color:#7A5C00">
-      <strong>No extra payment budget detected.</strong> Without extra money beyond minimums, both Avalanche and Snowball give the same result — there's nothing to redirect. Enter your salary and expenses above so we can calculate how much extra you can throw at debt each month.</div>`;
+    h+=`<div style="background:#FFF7E6;border:1px solid #F0D9A0;border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;font-size:13px;color:#7A5C00"><strong>No extra payment budget detected.</strong> Without extra money beyond minimums, both Avalanche and Snowball give the same result — there's nothing to redirect. Enter your salary and expenses above so we can calculate how much extra you can throw at debt each month.</div>`;
   } else if(saved===0 && av.months===sn.months){
-    h+=`<div style="background:#EBF0FA;border:1px solid #C1D4EE;border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;font-size:13px;color:#1D4A85">
-      <strong>Both methods give the same result for your debts.</strong> This happens when your highest-rate debt is also your smallest balance — both methods target the same debt first. Try adding more debts to see the difference, or adjust balances.</div>`;
+    h+=`<div style="background:#EBF0FA;border:1px solid #C1D4EE;border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;font-size:13px;color:#1D4A85"><strong>Both methods give the same result for your debts.</strong> This happens when your highest-rate debt is also your smallest balance — both methods target the same debt first. Try adding more debts to see the difference, or adjust balances.</div>`;
   }
 
-  // Stats — these update when switching methods
   h+=`<div class="stat-grid">
     <div class="stat-card primary"><div class="label">Debt-free date</div><div class="value" id="sFreeDate">${fDate(best.months)}</div><div class="detail" id="sFreeDetail">${mText(best.months)} with ${bestN}</div></div>
     <div class="stat-card secondary"><div class="label">Required salary</div><div class="value">${peso(reqSalary)}</div><div class="detail">Gross monthly (3x rule)</div></div>
@@ -525,7 +437,6 @@ function calculate(){
     <div class="stat-card outline"><div class="label">Interest you'll save</div><div class="value" style="color:${Math.abs(saved)>0?'var(--teal)':'var(--sub)'}"><span id="sSaved">${Math.abs(saved)>0?peso(Math.abs(saved)):'₱0'}</span></div><div class="detail" id="sSavedDetail">${Math.abs(saved)>0?'with '+bestN+' method':'enter salary for extra payments'}</div></div>
   </div>`;
 
-  // Show both method dates side by side
   h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:-4px 0 12px">
     <div style="background:${saved>=0?'var(--green-bg)':'#FAFBFC'};border:1px solid ${saved>=0?'#B7DFBF':'var(--border)'};border-radius:8px;padding:10px 14px;font-size:13px">
       <div style="font-weight:700;color:${saved>=0?'var(--teal)':'var(--text)'}">Avalanche</div>
@@ -540,7 +451,6 @@ function calculate(){
   </div>
   <div style="font-size:12px;color:var(--sub);margin:-4px 0 12px;text-align:right">Starting payments: ${fDate(0)}</div>`;
 
-  // Method toggle
   h+=`<div class="chart-panel"><div class="method-toggle" id="mToggle">
     <button class="${saved>=0?'active winner':''}" onclick="switchMethod('av',this)">Avalanche</button>
     <button class="${saved<0?'active winner':''}" onclick="switchMethod('sn',this)">Snowball</button></div>
@@ -553,10 +463,8 @@ function calculate(){
     <div class="chart-legend"><span><div class="dot" style="background:var(--navy)"></div>Principal</span><span><div class="dot" style="background:var(--orange)"></div>Interest</span></div>
   </div>`;
 
-  // Milestones
   h+=`<div class="amort-panel"><h3>Your Milestones</h3><div class="milestone-strip" id="milestones"></div></div>`;
 
-  // Strategy
   h+=`<div class="strategy-box"><h3>Your Personalized Strategy</h3><ol>
     <li><strong>Pay all minimums first</strong> — ${peso(tMin)}/month across all debts. Never miss a minimum.</li>
     <li><strong>Throw extra ${peso(extra)} at ${saved>=0?highest.name:smallest.name}</strong> — ${saved>=0?`highest rate at ${highest.rate}%/mo. Killing it first saves the most interest.`:`smallest balance at ${peso(smallest.balance)}. Quick win to build momentum!`}</li>
@@ -566,12 +474,10 @@ function calculate(){
     <li><strong>Remove temptation</strong> — temporarily unlink GCredit and credit cards from shopping apps.</li>
   </ol></div>`;
 
-  // Amortization
   h+=`<div class="amort-panel"><h3>Amortization Summary</h3><div class="amort-scroll"><table class="amort-table" id="amortTable"><thead><tr><th>Month</th><th>Principal</th><th>Interest</th><th>Balance</th></tr></thead><tbody></tbody></table></div>
   <div class="export-row"><button class="btn-sm" onclick="dlExcel()" style="background:var(--teal);color:#fff;border-color:var(--teal);font-weight:700">&#128202; Download Excel Tracker</button><button class="btn-sm" onclick="dlCSV()">&#8595; Download CSV</button><button class="btn-sm" onclick="window.print()">&#128424; Print plan</button></div>
-  <div style="font-size:11px;color:var(--sub);margin-top:6px">The Excel file includes a Target vs Actual tracker with dashboard — monitor your real progress every month.</div></div>`;
+  <div style="font-size:11px;color:var(--sub);margin-top:6px">The Excel file includes formulas, conditional formatting (green/red), and a Dashboard with auto-calculations.</div></div>`;
 
-  // Quote
   const qs=[{q:'"Ang taong walang utang, malaya ang buhay."',a:'Filipino proverb'},{q:'"The secret to getting ahead is getting started."',a:'Mark Twain'},{q:'"Every peso counts. Small payments lead to big freedom."',a:'Utang Free PH'}];
   const q=qs[Math.floor(Math.random()*qs.length)];
   h+=`<div class="quote"><div class="q">${q.q}</div><div class="a">— ${q.a}</div></div>`;
@@ -589,7 +495,6 @@ function switchMethod(m,btn){
   const methodName = m==='av'?'Avalanche':'Snowball';
   $('mInt').textContent=peso(d.tInt);
   $('mMo').textContent=d.months;
-  // Update debt-free date card
   if($('sFreeDate')) $('sFreeDate').textContent=fDate(d.months);
   if($('sFreeDetail')) $('sFreeDetail').textContent=mText(d.months)+' with '+methodName;
   renderChart(d.sch);
@@ -642,135 +547,209 @@ function dlCSV(){
   a.href=u;a.download='utang-free-ph-payoff.csv';a.click();URL.revokeObjectURL(u);
 }
 
-function dlExcel(){
-  if(!curSch||typeof XLSX==='undefined'){alert('Excel library loading... please try again in a moment.');return;}
+/* ═══════════════════════════════════════════════════════════════
+   FIXED EXCEL EXPORT — ExcelJS with formulas, styles, conditional formatting
+   ═══════════════════════════════════════════════════════════════ */
+async function dlExcel(){
+  if(!curSch){alert('Please calculate your payoff plan first.');return;}
+  if(typeof ExcelJS==='undefined'){alert('Excel library still loading... please try again.');return;}
+
   const debts=getDebts();
   const m=document.querySelector('.method-toggle button.active')?.textContent?.includes('Avalanche')?'av':'sn';
   const d=curSch[m];
   const methodName=m==='av'?'Avalanche':'Snowball';
-  const wb=XLSX.utils.book_new();
+  const totalDebt=debts.reduce((s,x)=>s+x.balance,0);
+  const startDate=getStartDate();
 
-  // Sheet 1: Instructions
-  const instrData=[
-    ['UTANG FREE PH — Debt Monitoring Workbook'],
-    [''],
-    ['HOW TO USE THIS WORKBOOK'],
-    [''],
-    ['STEP 1: Review your Target Plan (next sheet)'],
-    ['This sheet shows what SHOULD happen each month if you follow the plan. Don\'t edit it — it\'s your benchmark.'],
-    [''],
-    ['STEP 2: Log actual payments in Monthly Actual sheet'],
-    ['Every month, fill in TWO columns: ACTUAL PAYMENT and ACTUAL BALANCE.'],
-    ['Check your bank app or GCash/Maya statement for real numbers.'],
-    ['Everything else auto-calculates. Green = ahead, Red = behind.'],
-    [''],
-    ['STEP 3: Check Dashboard sheet'],
-    ['See total progress, per-debt status, and whether you\'re ahead or behind your plan.'],
-    [''],
-    ['TIPS:'],
-    ['1. Update on the same day each month (e.g. every payday)'],
-    ['2. Be honest — the tool only works with real data'],
-    ['3. If you miss a month, just fill in the next one'],
-    ['4. Celebrate each PAID OFF milestone!'],
-    ['5. If consistently behind, revisit your budget'],
-    [''],
-    ['COLOR GUIDE:'],
-    ['Yellow cells = YOUR input (fill these in)'],
-    ['Green = Ahead of target / Paid off'],
-    ['Red = Behind target'],
-    ['Gray = Auto-calculated (don\'t edit)'],
-    [''],
-    ['Method used: '+methodName],
-    ['Generated: '+new Date().toLocaleDateString('en-PH',{month:'long',day:'numeric',year:'numeric'})],
-    ['Source: Utang Free PH Calculator'],
+  const wb=new ExcelJS.Workbook();
+  wb.creator='Utang Free PH';wb.created=new Date();
+
+  const NAVY='0F2B3C',TEAL='1A8A6E',ORANGE='E8773A',RED='D94B4B';
+  const HEADER_FONT={bold:true,color:{argb:'FFFFFFFF'},size:11};
+  const NAVY_FILL={type:'pattern',pattern:'solid',fgColor:{argb:'FF'+NAVY}};
+  const TEAL_FILL={type:'pattern',pattern:'solid',fgColor:{argb:'FF'+TEAL}};
+  const PESO='#,##0';
+  const yellowFill={type:'pattern',pattern:'solid',fgColor:{argb:'FFFFF9E6'}};
+  const grayFill={type:'pattern',pattern:'solid',fgColor:{argb:'FFF4F6F8'}};
+  const greenFill={type:'pattern',pattern:'solid',fgColor:{argb:'FFE8F5EE'}};
+  const redFill={type:'pattern',pattern:'solid',fgColor:{argb:'FFFDECEA'}};
+  const yBorder={top:{style:'thin',color:{argb:'FFF0D9A0'}},bottom:{style:'thin',color:{argb:'FFF0D9A0'}},left:{style:'thin',color:{argb:'FFF0D9A0'}},right:{style:'thin',color:{argb:'FFF0D9A0'}}};
+
+  function ds(mo){const dt=new Date(startDate);dt.setMonth(dt.getMonth()+mo);return dt.toLocaleDateString('en-PH',{month:'short',year:'numeric'});}
+
+  // ═══ SHEET 1: HOW TO USE ═══
+  const ws1=wb.addWorksheet('How to Use',{properties:{tabColor:{argb:'FF'+NAVY}}});
+  ws1.getColumn(1).width=75;
+  const ins=[
+    {t:'UTANG FREE PH — Debt Monitoring Workbook',s:{bold:true,size:16,color:{argb:'FF'+NAVY}}},
+    {},
+    {t:'HOW TO USE THIS WORKBOOK',s:{bold:true,size:13,color:{argb:'FF'+TEAL}}},
+    {},
+    {t:'STEP 1: Review Target Plan sheet — your benchmark. Don\'t edit it.',s:{bold:true}},
+    {t:'STEP 2: Every month, fill in YELLOW cells in Monthly Actual: ACTUAL PAYMENT and ACTUAL BALANCE.',s:{bold:true}},
+    {t:'STEP 3: Check Dashboard — it auto-calculates your progress using formulas.',s:{bold:true}},
+    {},
+    {t:'COLOR GUIDE:',s:{bold:true}},
+    {t:'Yellow cells = YOUR input (fill these in)',f:yellowFill},
+    {t:'Green = Ahead of target / Paid off',f:greenFill},
+    {t:'Red = Behind target',f:redFill},
+    {t:'Gray = Auto-calculated (don\'t edit)',f:grayFill},
+    {},
+    {t:'Method: '+methodName+' | Generated: '+new Date().toLocaleDateString('en-PH',{month:'long',day:'numeric',year:'numeric'})},
+    {t:'Source: Utang Free PH Calculator'},
   ];
-  const ws1=XLSX.utils.aoa_to_sheet(instrData);
-  ws1['!cols']=[{wch:70}];
-  XLSX.utils.book_append_sheet(wb,ws1,'How to Use');
+  ins.forEach((l,i)=>{if(!l.t)return;const c=ws1.getRow(i+1).getCell(1);c.value=l.t;if(l.s)c.font=l.s;if(l.f)c.fill=l.f;});
 
-  // Sheet 2: Target Plan
-  const targetRows=[['Month','Date','Debt Name','Target Payment','Target Interest','Target Principal','Target Balance','Milestone']];
+  // ═══ SHEET 2: TARGET PLAN ═══
+  const ws2=wb.addWorksheet('Target Plan',{properties:{tabColor:{argb:'FF'+TEAL}}});
+  [8,14,20,16,16,16,16,24].forEach((w,i)=>ws2.getColumn(i+1).width=w);
+  ['Month','Date','Debt Name','Target Payment','Target Interest','Target Principal','Target Balance','Milestone'].forEach((h,i)=>{const c=ws2.getRow(1).getCell(i+1);c.value=h;c.font=HEADER_FONT;c.fill=NAVY_FILL;c.alignment={horizontal:'center'};});
+  ws2.autoFilter={from:'A1',to:'H1'};
+  ws2.views=[{state:'frozen',ySplit:1}];
+
+  let tr=2;
   d.sch.forEach(s=>{
     const paid=d.po.filter(p=>p.month===s.mo).map(p=>p.name);
     debts.forEach(debt=>{
-      // Simplified: show total per month
+      const pct=debt.balance/totalDebt;const row=ws2.getRow(tr);
+      row.getCell(1).value=s.mo;row.getCell(2).value=ds(s.mo);row.getCell(3).value=debt.name;
+      row.getCell(4).value=Math.round((s.prin+s.int)*pct);row.getCell(4).numFmt=PESO;
+      row.getCell(5).value=Math.round(s.int*pct);row.getCell(5).numFmt=PESO;
+      row.getCell(6).value=Math.round(s.prin*pct);row.getCell(6).numFmt=PESO;
+      row.getCell(7).value=Math.round(s.rem*pct);row.getCell(7).numFmt=PESO;
+      if(paid.includes(debt.name)){row.getCell(8).value=debt.name+' PAID OFF!';row.getCell(8).font={bold:true,color:{argb:'FF'+TEAL}};}
+      if(s.mo%2===0)for(let c=1;c<=8;c++)row.getCell(c).fill={type:'pattern',pattern:'solid',fgColor:{argb:'FFF8FAFB'}};
+      tr++;
     });
-    targetRows.push([s.mo,fDateShort(s.mo),'All debts',s.prin+s.int,s.int,s.prin,s.rem,paid.length?paid.join(', ')+' PAID OFF!':'']);
   });
-  const ws2=XLSX.utils.aoa_to_sheet(targetRows);
-  ws2['!cols']=[{wch:8},{wch:12},{wch:16},{wch:16},{wch:16},{wch:16},{wch:16},{wch:20}];
-  XLSX.utils.book_append_sheet(wb,ws2,'Target Plan');
 
-  // Sheet 3: Monthly Actual (user fills in)
-  const actualRows=[['Month','Date','Debt Name','Target Payment','Actual Payment','Variance','Target Balance','Actual Balance','Balance vs Target','Status']];
+  // ═══ SHEET 3: MONTHLY ACTUAL (WITH FORMULAS!) ═══
+  const ws3=wb.addWorksheet('Monthly Actual',{properties:{tabColor:{argb:'FF'+ORANGE}}});
+  [8,14,20,16,16,16,16,16,16,16].forEach((w,i)=>ws3.getColumn(i+1).width=w);
+  ['Month','Date','Debt Name','Target Payment','Actual Payment','Variance','Target Balance','Actual Balance','Balance vs Target','Status'].forEach((h,i)=>{const c=ws3.getRow(1).getCell(i+1);c.value=h;c.font=HEADER_FONT;c.fill=NAVY_FILL;c.alignment={horizontal:'center'};});
+  ws3.autoFilter={from:'A1',to:'J1'};
+  ws3.views=[{state:'frozen',ySplit:1}];
+
+  let mr=2;
   d.sch.forEach(s=>{
     debts.forEach(debt=>{
-      actualRows.push([s.mo,fDateShort(s.mo),debt.name,debt.minPay,'','',s.rem,'','','']);
+      const pct=debt.balance/totalDebt;const row=ws3.getRow(mr);const r=mr;
+      row.getCell(1).value=s.mo;row.getCell(1).alignment={horizontal:'center'};
+      row.getCell(2).value=ds(s.mo);
+      row.getCell(3).value=debt.name;
+      row.getCell(4).value=Math.round((s.prin+s.int)*pct);row.getCell(4).numFmt=PESO;row.getCell(4).fill=grayFill;
+      // E: ACTUAL PAYMENT — USER INPUT (yellow)
+      row.getCell(5).numFmt=PESO;row.getCell(5).fill=yellowFill;row.getCell(5).border=yBorder;
+      // F: VARIANCE FORMULA
+      row.getCell(6).value={formula:'IF(E'+r+'="","",E'+r+'-D'+r+')'};row.getCell(6).numFmt=PESO;row.getCell(6).fill=grayFill;
+      row.getCell(7).value=Math.round(s.rem*pct);row.getCell(7).numFmt=PESO;row.getCell(7).fill=grayFill;
+      // H: ACTUAL BALANCE — USER INPUT (yellow)
+      row.getCell(8).numFmt=PESO;row.getCell(8).fill=yellowFill;row.getCell(8).border=yBorder;
+      // I: BALANCE VS TARGET FORMULA
+      row.getCell(9).value={formula:'IF(H'+r+'="","",H'+r+'-G'+r+')'};row.getCell(9).numFmt=PESO;row.getCell(9).fill=grayFill;
+      // J: STATUS FORMULA
+      row.getCell(10).value={formula:'IF(H'+r+'="","",IF(H'+r+'<=0,"PAID OFF",IF(H'+r+'<G'+r+',"Ahead","Behind")))'};row.getCell(10).fill=grayFill;row.getCell(10).alignment={horizontal:'center'};
+      mr++;
     });
   });
-  const ws3=XLSX.utils.aoa_to_sheet(actualRows);
-  ws3['!cols']=[{wch:8},{wch:12},{wch:18},{wch:16},{wch:16},{wch:14},{wch:16},{wch:16},{wch:16},{wch:14}];
-  // Highlight input columns
-  for(let r=1;r<actualRows.length;r++){
-    const eCell=XLSX.utils.encode_cell({r,c:4});
-    const hCell=XLSX.utils.encode_cell({r,c:7});
-    if(ws3[eCell]) ws3[eCell].s={fill:{fgColor:{rgb:'FFFFF0'}}};
-    if(ws3[hCell]) ws3[hCell].s={fill:{fgColor:{rgb:'FFFFF0'}}};
-  }
-  XLSX.utils.book_append_sheet(wb,ws3,'Monthly Actual');
+  const lastR=mr-1;
 
-  // Sheet 4: Dashboard
-  const dashRows=[
-    ['UTANG FREE PH — DASHBOARD'],
-    [''],
-    ['SUMMARY','','',''],
-    ['Starting Debt','Current Balance','Total Paid','Progress'],
-    [debts.reduce((s,x)=>s+x.balance,0),'(fill from Monthly Actual)','(auto from Monthly Actual)',''],
-    [''],
-    ['PER-DEBT PROGRESS'],
-    ['Debt Name','Starting Balance','Current Balance','Target Balance','Status'],
-  ];
-  debts.forEach(x=>{
-    dashRows.push([x.name,x.balance,'(update monthly)','(from Target Plan)','']);
+  // Conditional formatting
+  ws3.addConditionalFormatting({ref:'F2:F'+lastR,rules:[
+    {type:'cellIs',operator:'greaterThan',priority:1,formulae:['0'],style:{font:{color:{argb:'FF'+TEAL}},fill:greenFill}},
+    {type:'cellIs',operator:'lessThan',priority:2,formulae:['0'],style:{font:{color:{argb:'FF'+RED}},fill:redFill}}
+  ]});
+  ws3.addConditionalFormatting({ref:'I2:I'+lastR,rules:[
+    {type:'cellIs',operator:'lessThan',priority:3,formulae:['0'],style:{font:{color:{argb:'FF'+TEAL}},fill:greenFill}},
+    {type:'cellIs',operator:'greaterThan',priority:4,formulae:['0'],style:{font:{color:{argb:'FF'+RED}},fill:redFill}}
+  ]});
+  ws3.addConditionalFormatting({ref:'J2:J'+lastR,rules:[
+    {type:'containsText',operator:'containsText',priority:5,text:'PAID OFF',style:{font:{bold:true,color:{argb:'FF'+TEAL}},fill:greenFill}},
+    {type:'containsText',operator:'containsText',priority:6,text:'Ahead',style:{font:{color:{argb:'FF'+TEAL}},fill:greenFill}},
+    {type:'containsText',operator:'containsText',priority:7,text:'Behind',style:{font:{color:{argb:'FF'+RED}},fill:redFill}}
+  ]});
+
+  // ═══ SHEET 4: DASHBOARD (WITH FORMULAS!) ═══
+  const ws4=wb.addWorksheet('Dashboard',{properties:{tabColor:{argb:'FF'+TEAL}}});
+  [30,18,18,18,16].forEach((w,i)=>ws4.getColumn(i+1).width=w);
+  ws4.mergeCells('A1:E1');
+  const tc=ws4.getCell('A1');tc.value='UTANG FREE PH — DASHBOARD';tc.font={bold:true,size:16,color:{argb:'FF'+NAVY}};tc.fill={type:'pattern',pattern:'solid',fgColor:{argb:'FFEEF2F7'}};tc.alignment={horizontal:'center',vertical:'middle'};ws4.getRow(1).height=36;
+  ws4.mergeCells('A2:E2');ws4.getCell('A2').value='Method: '+methodName+' | Start: '+ds(0);ws4.getCell('A2').font={italic:true,color:{argb:'FF6B7B8D'},size:10};
+
+  // Summary section
+  ws4.getCell('A4').value='SUMMARY';ws4.getCell('A4').font={bold:true,size:13,color:{argb:'FF'+TEAL}};
+  ['','Starting Debt','Total Paid','Current Balance','Progress'].forEach((h,i)=>{const c=ws4.getRow(5).getCell(i+1);c.value=h;c.font={bold:true,size:10,color:{argb:'FFFFFFFF'}};c.fill=TEAL_FILL;c.alignment={horizontal:'center'};});
+  const sr=ws4.getRow(6);
+  sr.getCell(1).value='All Debts';sr.getCell(1).font={bold:true};
+  sr.getCell(2).value=totalDebt;sr.getCell(2).numFmt=PESO;
+  sr.getCell(3).value={formula:"SUMPRODUCT(('Monthly Actual'!E2:E"+lastR+")*('Monthly Actual'!E2:E"+lastR+'<>""))'};sr.getCell(3).numFmt=PESO;
+  sr.getCell(4).value={formula:'B6-C6'};sr.getCell(4).numFmt=PESO;
+  sr.getCell(5).value={formula:'IF(B6=0,0,C6/B6)'};sr.getCell(5).numFmt='0.0%';
+
+  // Per-debt progress
+  ws4.getCell('A8').value='PER-DEBT PROGRESS';ws4.getCell('A8').font={bold:true,size:13,color:{argb:'FF'+TEAL}};
+  ['Debt Name','Starting Balance','Payments Made','Current Balance','Status'].forEach((h,i)=>{const c=ws4.getRow(9).getCell(i+1);c.value=h;c.font={bold:true,size:10,color:{argb:'FFFFFFFF'}};c.fill=NAVY_FILL;c.alignment={horizontal:'center'};});
+  debts.forEach((debt,idx)=>{
+    const row=ws4.getRow(10+idx);
+    row.getCell(1).value=debt.name;row.getCell(1).font={bold:true};
+    row.getCell(2).value=debt.balance;row.getCell(2).numFmt=PESO;
+    row.getCell(3).value={formula:"SUMPRODUCT(('Monthly Actual'!E2:E"+lastR+")*('Monthly Actual'!C2:C"+lastR+'="'+debt.name+'")*('+"'Monthly Actual'!E2:E"+lastR+'<>""))'};row.getCell(3).numFmt=PESO;
+    row.getCell(4).value={formula:'B'+(10+idx)+'-C'+(10+idx)};row.getCell(4).numFmt=PESO;
+    row.getCell(5).value={formula:'IF(D'+(10+idx)+'<=0,"PAID OFF!",IF(D'+(10+idx)+'<B'+(10+idx)+'*0.5,"Almost there!","In progress"))'};row.getCell(5).alignment={horizontal:'center'};
   });
-  dashRows.push([]);
-  dashRows.push(['MILESTONES']);
+  const dlr=10+debts.length-1;
+  ws4.addConditionalFormatting({ref:'E10:E'+dlr,rules:[
+    {type:'containsText',operator:'containsText',priority:20,text:'PAID OFF',style:{font:{bold:true,color:{argb:'FF'+TEAL}},fill:greenFill}},
+    {type:'containsText',operator:'containsText',priority:21,text:'Almost',style:{font:{color:{argb:'FF'+TEAL}}}},
+  ]});
+
+  // Milestones
+  const msR=dlr+3;
+  ws4.getCell('A'+msR).value='MILESTONES';ws4.getCell('A'+msR).font={bold:true,size:13,color:{argb:'FF'+TEAL}};
+  ['Debt Name','Status','Target Month','Target Date'].forEach((h,i)=>{const c=ws4.getRow(msR+1).getCell(i+1);c.value=h;c.font={bold:true,size:10,color:{argb:'FFFFFFFF'}};c.fill=NAVY_FILL;c.alignment={horizontal:'center'};});
   const sorted=[...d.po].sort((a,b)=>a.month-b.month);
-  sorted.forEach(p=>{
-    dashRows.push([p.name,'PAID OFF!','Month '+p.month,fDate(p.month)]);
+  sorted.forEach((p,i)=>{
+    const row=ws4.getRow(msR+2+i);
+    row.getCell(1).value=p.name;row.getCell(1).font={bold:true};
+    row.getCell(2).value='PAID OFF!';row.getCell(2).font={bold:true,color:{argb:'FF'+TEAL}};row.getCell(2).fill=greenFill;
+    row.getCell(3).value='Month '+p.month;row.getCell(4).value=ds(p.month);
   });
-  dashRows.push(['ALL DEBTS','UTANG-FREE!','',fDate(d.months)]);
-  const ws4=XLSX.utils.aoa_to_sheet(dashRows);
-  ws4['!cols']=[{wch:20},{wch:18},{wch:18},{wch:18},{wch:14}];
-  XLSX.utils.book_append_sheet(wb,ws4,'Dashboard');
+  const fR=ws4.getRow(msR+2+sorted.length);
+  fR.getCell(1).value='ALL DEBTS';fR.getCell(1).font={bold:true,size:12,color:{argb:'FF'+TEAL}};
+  fR.getCell(2).value='UTANG-FREE!';fR.getCell(2).font={bold:true,size:12,color:{argb:'FF'+TEAL}};fR.getCell(2).fill=greenFill;
+  fR.getCell(4).value=ds(d.months);fR.getCell(4).font={bold:true,color:{argb:'FF'+TEAL}};
 
-  // Sheet 5: Reference Rates
-  const ratesRows=[
-    ['Philippine Debt Interest Rates (2026)'],
-    [''],
-    ['Lender','Type','Monthly Rate','Annual Rate','Notes'],
-    ['BDO','Credit Card','2.00%','24.0%','BSP max 3%/mo'],
-    ['BPI','Credit Card','1.85%','22.2%','Lower than most banks'],
-    ['Metrobank','Credit Card','2.00%','24.0%','Standard bank rate'],
-    ['GCash','GCredit','5.00%','60.0%','Very high — pay off first!'],
-    ['Maya','Maya Credit','3.50%','42.0%','High digital lender rate'],
-    ['BillEase','BNPL / Loan','3.49%','41.9%','Buy now pay later'],
-    ['Cashalo','Personal Loan','4.00%','48.0%','Online lending app'],
-    ['Tala','Personal Loan','5.00%','60.0%','Very high — avoid if possible'],
-    ['Home Credit','Cash Loan','2.79%','33.5%','In-store financing'],
-    ['SSS','Salary Loan','0.83%','10.0%','Government — lowest rate'],
-    ['Pag-IBIG','Multi-Purpose Loan','0.88%','10.5%','Government — lowest rate'],
-    ['','','','',''],
-    ['Source: BSP, bank websites, app disclosures. Rates may vary.'],
-  ];
-  const ws5=XLSX.utils.aoa_to_sheet(ratesRows);
-  ws5['!cols']=[{wch:16},{wch:18},{wch:14},{wch:14},{wch:30}];
-  XLSX.utils.book_append_sheet(wb,ws5,'Reference Rates');
+  // Chart data for user to create chart manually
+  const chR=fR.number+3;
+  ws4.getCell('A'+chR).value='BALANCE OVER TIME (select B-D below, then Insert > Chart > Line)';ws4.getCell('A'+chR).font={bold:true,size:11,color:{argb:'FF'+TEAL}};
+  ['Month','Date','Target Balance','Actual Balance'].forEach((h,i)=>{const c=ws4.getRow(chR+1).getCell(i+1);c.value=h;c.font={bold:true,size:10,color:{argb:'FFFFFFFF'}};c.fill=NAVY_FILL;c.alignment={horizontal:'center'};});
+  const step=Math.max(1,Math.floor(d.sch.length/24));
+  const pts=d.sch.filter((_,i)=>i%step===0||i===d.sch.length-1);
+  pts.forEach((s,i)=>{
+    const row=ws4.getRow(chR+2+i);
+    row.getCell(1).value=s.mo;row.getCell(2).value=ds(s.mo);
+    row.getCell(3).value=s.rem;row.getCell(3).numFmt=PESO;
+    row.getCell(4).numFmt=PESO;row.getCell(4).fill=yellowFill;row.getCell(4).border=yBorder;
+  });
 
-  XLSX.writeFile(wb,'Utang-Free-PH-Tracker.xlsx');
+  // ═══ SHEET 5: REFERENCE RATES ═══
+  const ws5=wb.addWorksheet('Reference Rates',{properties:{tabColor:{argb:'FF6B7B8D'}}});
+  [18,18,14,14,35].forEach((w,i)=>ws5.getColumn(i+1).width=w);
+  ws5.mergeCells('A1:E1');ws5.getCell('A1').value='Philippine Debt Interest Rates (2026)';ws5.getCell('A1').font={bold:true,size:14,color:{argb:'FF'+NAVY}};
+  ['Lender','Type','Monthly Rate','Annual Rate','Notes'].forEach((h,i)=>{const c=ws5.getRow(3).getCell(i+1);c.value=h;c.font={bold:true,size:10,color:{argb:'FFFFFFFF'}};c.fill=NAVY_FILL;c.alignment={horizontal:'center'};});
+  [['BDO','Credit Card','2.00%','24.0%','BSP max 3%/mo'],['BPI','Credit Card','1.85%','22.2%','Lower than most banks'],['Metrobank','Credit Card','2.00%','24.0%','Standard bank rate'],['GCash','GCredit','5.00%','60.0%','Very high — pay off first!'],['Maya','Maya Credit','3.50%','42.0%','High digital lender rate'],['BillEase','BNPL / Loan','3.49%','41.9%','Buy now pay later'],['Cashalo','Personal Loan','4.00%','48.0%','Online lending app'],['Tala','Personal Loan','5.00%','60.0%','Very high — avoid'],['Home Credit','Cash Loan','2.79%','33.5%','In-store financing'],['SSS','Salary Loan','0.83%','10.0%','Government — lowest'],['Pag-IBIG','Multi-Purpose','0.88%','10.5%','Government — lowest']].forEach((r,i)=>{
+    const row=ws5.getRow(4+i);r.forEach((v,j)=>{row.getCell(j+1).value=v;if(j>=2&&j<=3)row.getCell(j+1).alignment={horizontal:'center'};});
+    if(parseFloat(r[2])>=3.5){row.getCell(1).font={bold:true,color:{argb:'FF'+RED}};row.getCell(5).font={bold:true,color:{argb:'FF'+RED}};}
+  });
+
+  // ═══ DOWNLOAD ═══
+  const buf=await wb.xlsx.writeBuffer();
+  const blob=new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='Utang-Free-PH-Tracker.xlsx';a.click();URL.revokeObjectURL(url);
 }
 
-// Init with sample debts that show real difference between methods
+// Init with sample debts
 addDebt('BDO Credit Card','50000','bdo','2500');
 addDebt('GCash GCredit','15000','gcash','1500');
 addDebt('SSS Salary Loan','8000','sss','800');
