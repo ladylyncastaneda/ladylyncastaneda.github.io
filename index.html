@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lady's App Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ink: #1a1a2e;
+    --paper: #fafaf8;
+    --accent: #2563eb;
+    --accent-soft: #dbeafe;
+    --accent-glow: #3b82f6;
+    --warm: #f5f0ea;
+    --warm-dark: #e8dfd4;
+    --slate: #64748b;
+    --card-bg: #ffffff;
+    --border: #e2e8f0;
+    --success: #10b981;
+    --coming: #f59e0b;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── NOISE TEXTURE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slideRight {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .animate-up { animation: fadeUp 0.8s ease-out both; }
+  .animate-in { animation: fadeIn 0.6s ease-out both; }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.4s; }
+  .delay-5 { animation-delay: 0.5s; }
+  .delay-6 { animation-delay: 0.6s; }
+
+  /* ─── NAVIGATION ─── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(250, 250, 248, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.06); }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--slate);
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ─── HERO SECTION ─── */
+  .hero {
+    padding: 160px 24px 100px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .hero-text h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    line-height: 1.15;
+    color: var(--ink);
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+  .hero-text h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--accent), #7c3aed, var(--accent));
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 4s ease infinite;
+  }
+  .hero-text p {
+    font-size: 1.1rem;
+    color: var(--slate);
+    max-width: 480px;
+    margin-bottom: 32px;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--ink);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(26, 26, 46, 0.2);
+  }
+  .hero-cta svg { transition: transform 0.3s; }
+  .hero-cta:hover svg { transform: translateX(4px); }
+
+  /* Hero visual */
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .hero-card-stack {
+    position: relative;
+    width: 320px;
+    height: 260px;
+  }
+  .hero-float-card {
+    position: absolute;
+    background: var(--card-bg);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+    animation: float 6s ease-in-out infinite;
+  }
+  .hero-float-card:nth-child(1) {
+    top: 0; left: 0;
+    animation-delay: 0s;
+  }
+  .hero-float-card:nth-child(2) {
+    top: 60px; left: 80px;
+    animation-delay: -2s;
+    z-index: 2;
+    border-color: var(--accent-soft);
+  }
+  .hero-float-card:nth-child(3) {
+    top: 120px; left: 30px;
+    animation-delay: -4s;
+  }
+  .float-emoji { font-size: 1.8rem; margin-bottom: 8px; }
+  .float-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 2px; }
+  .float-sub { font-size: 0.78rem; color: var(--slate); }
+
+  /* ─── SECTION COMMON ─── */
+  section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 24px;
+  }
+  .section-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    color: var(--ink);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+  .section-desc {
+    color: var(--slate);
+    max-width: 560px;
+    margin-bottom: 48px;
+    font-size: 1.02rem;
+  }
+
+  /* ─── APP CARDS ─── */
+  .apps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+  }
+  .app-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .app-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    border-color: var(--accent-soft);
+  }
+  .app-card-header {
+    padding: 32px 28px 24px;
+    background: linear-gradient(135deg, var(--warm) 0%, var(--paper) 100%);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .app-card-header .app-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    background: white;
+  }
+  .app-card-body { padding: 24px 28px 28px; }
+  .app-card-body h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .app-card-body p {
+    font-size: 0.9rem;
+    color: var(--slate);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .app-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .tag-live { background: #ecfdf5; color: #059669; }
+  .tag-coming { background: #fffbeb; color: #d97706; }
+  .app-card-arrow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-top: 12px;
+  }
+  .app-card-arrow svg { transition: transform 0.3s; }
+  .app-card:hover .app-card-arrow svg { transform: translateX(4px); }
+
+  /* Coming soon card */
+  .app-card.coming-soon {
+    border-style: dashed;
+    opacity: 0.75;
+  }
+  .app-card.coming-soon:hover {
+    transform: none;
+    box-shadow: none;
+    cursor: default;
+  }
+
+  /* ─── ABOUT SECTION ─── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .about-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .highlight-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    gap: 16px;
+    align-items: start;
+    transition: border-color 0.3s;
+  }
+  .highlight-item:hover { border-color: var(--accent-soft); }
+  .highlight-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .highlight-text h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 2px; }
+  .highlight-text p { font-size: 0.82rem; color: var(--slate); line-height: 1.5; }
+  .about-story { font-size: 1rem; color: var(--ink); line-height: 1.8; }
+  .about-story p { margin-bottom: 16px; }
+
+  /* ─── CONTACT ─── */
+  .contact-section {
+    background: var(--ink);
+    border-radius: 24px;
+    padding: 64px;
+    color: white;
+    text-align: center;
+    margin: 0 24px 80px;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.15), transparent 70%);
+    pointer-events: none;
+  }
+  .contact-section h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .contact-section p {
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 36px;
+    font-size: 1rem;
+    position: relative;
+  }
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .contact-link:hover {
+    transform: translateY(-2px);
+  }
+  .contact-link.primary {
+    background: white;
+    color: var(--ink);
+  }
+  .contact-link.secondary {
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .contact-link.secondary:hover {
+    background: rgba(255,255,255,0.15);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align: center;
+    padding: 32px 24px 40px;
+    font-size: 0.82rem;
+    color: var(--slate);
+  }
+  footer span { color: var(--accent); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 120px 24px 60px;
+      gap: 40px;
+      text-align: center;
+    }
+    .hero-text p { margin-left: auto; margin-right: auto; }
+    .hero-visual { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 32px; }
+    .apps-grid { grid-template-columns: 1fr; }
+    .contact-section { padding: 48px 28px; margin: 0 16px 60px; }
+    .nav-links { gap: 20px; }
+    .nav-links a { font-size: 0.82rem; }
+  }
+
+  @media (max-width: 480px) {
+    .nav-inner { padding: 14px 16px; }
+    .nav-links { gap: 14px; }
+    section { padding: 60px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── NAVIGATION ─── -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Lady's <span>App Lab</span></a>
+    <ul class="nav-links">
+      <li><a href="#apps">Apps</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-text">
+    <h1 class="animate-up">Small tools,<br><em>big impact.</em></h1>
+    <p class="animate-up delay-2">Welcome to Lady's App Lab — a collection of free, practical web apps I build to solve everyday problems. No downloads, no sign-ups. Just open and use.</p>
+    <a href="#apps" class="hero-cta animate-up delay-3">
+      Browse Apps
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+  <div class="hero-visual animate-in delay-4">
+    <div class="hero-card-stack">
+      <div class="hero-float-card">
+        <div class="float-emoji">💸</div>
+        <div class="float-title">Utang-Free</div>
+        <div class="float-sub">Track debts, stay stress-free</div>
+      </div>
+      <div class="hero-float-card">
+        <div class="float-emoji">🚀</div>
+        <div class="float-title">More Coming</div>
+        <div class="float-sub">New tools every month</div>
+      </div>
+      <div class="hero-float-card">
+        <div class="float-emoji">🛠️</div>
+        <div class="float-title">100% Free</div>
+        <div class="float-sub">No installs needed</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── APPS ─── -->
+<section id="apps">
+  <div class="section-label animate-up">Apps & Tools</div>
+  <h2 class="section-title animate-up delay-1">Things I've built</h2>
+  <p class="section-desc animate-up delay-2">Simple web apps designed to make everyday tasks a little easier. Each one runs entirely in your browser — your data stays with you.</p>
+
+  <div class="apps-grid">
+    <!-- APP 1: Utang-Free -->
+    <a href="./utang-free/" class="app-card animate-up delay-3">
+      <div class="app-card-header">
+        <div class="app-icon">💸</div>
+      </div>
+      <div class="app-card-body">
+        <h3>Utang-Free</h3>
+        <p>A friendly debt tracker that helps you log who owes who, track partial payments, and see your balances at a glance. No judgment, just clarity.</p>
+        <span class="app-tag tag-live">Live</span>
+        <div class="app-card-arrow">
+          Open App
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </a>
+
+    <!-- COMING SOON 1 -->
+    <div class="app-card coming-soon animate-up delay-4">
+      <div class="app-card-header">
+        <div class="app-icon">📊</div>
+      </div>
+      <div class="app-card-body">
+        <h3>Coming Soon</h3>
+        <p>A new tool is in the works. Stay tuned — I'm always cooking up something useful in the lab.</p>
+        <span class="app-tag tag-coming">In Progress</span>
+      </div>
+    </div>
+
+    <!-- COMING SOON 2 -->
+    <div class="app-card coming-soon animate-up delay-5">
+      <div class="app-card-header">
+        <div class="app-icon">✨</div>
+      </div>
+      <div class="app-card-body">
+        <h3>Coming Soon</h3>
+        <p>Got a tool idea? I'd love to hear it. Reach out and maybe your idea becomes the next app here.</p>
+        <span class="app-tag tag-coming">Idea Stage</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <div class="section-label animate-up">About</div>
+      <h2 class="section-title animate-up delay-1">Hi, I'm Lady!</h2>
+      <div class="about-highlights animate-up delay-3">
+        <div class="highlight-item">
+          <div class="highlight-icon">🇵🇭</div>
+          <div class="highlight-text">
+            <h4>Based in the Philippines</h4>
+            <p>Building tools that solve real, everyday problems</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon">⚡</div>
+          <div class="highlight-text">
+            <h4>Automation Enthusiast</h4>
+            <p>I love making tedious tasks disappear with technology</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon">🧪</div>
+          <div class="highlight-text">
+            <h4>Always Experimenting</h4>
+            <p>This lab is where I turn ideas into working tools</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="about-story animate-up delay-2">
+      <p>I started building web tools as a way to solve my own everyday problems — tracking debts, automating repetitive work, organizing information. What began as personal projects quickly became something I wanted to share with others.</p>
+      <p>Every app in this lab is <strong>free to use</strong>, runs <strong>entirely in your browser</strong>, and respects your privacy. No accounts needed, no data sent anywhere. Just practical tools that work.</p>
+      <p>I'm not a traditional developer — I'm someone who loves finding smart solutions and turning them into reality with the help of modern tools. If you have an idea for a useful app, I'd love to hear about it!</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<div id="contact" class="contact-section animate-up">
+  <h2>Let's Connect</h2>
+  <p>Have a tool idea? Want to collaborate? Or just want to say hi?</p>
+  <div class="contact-links">
+    <a href="mailto:your.email@gmail.com" class="contact-link primary">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      Email Me
+    </a>
+    <a href="https://www.facebook.com/" class="contact-link secondary" target="_blank">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      Facebook
+    </a>
+    <a href="https://github.com/ladylyncastaneda" class="contact-link secondary" target="_blank">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      GitHub
+    </a>
+  </div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <p>&copy; 2026 Lady's <span>App Lab</span>. Built with curiosity and a little help from AI.</p>
+</footer>
+
+<!-- ─── SCRIPTS ─── -->
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Scroll-triggered animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.animate-up, .animate-in').forEach(el => {
+    el.style.animationPlayState = 'paused';
+    observer.observe(el);
+  });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
