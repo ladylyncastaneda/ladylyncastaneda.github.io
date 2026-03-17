@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Utang Free PH | Philippine Debt Payoff Calculator</title>
+<meta name="description" content="Free Philippine debt payoff calculator. Compare Avalanche vs Snowball methods. Preset rates for BDO, BPI, GCash Credit, Metrobank, Maya. See your debt-free date and save on interest.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--navy:#0F2B3C;--navy-light:#163B50;--teal:#1A8A6E;--teal-dark:#14705A;
+--orange:#E8773A;--orange-dark:#D0632A;--red:#D94B4B;
+--bg:#F4F6F8;--card:#FFFFFF;--text:#1A2332;--sub:#6B7B8D;--border:#E2E8EE;
+--radius:10px;--shadow:0 1px 4px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+h1,h2,h3,.serif{font-family:'Fraunces',serif}
+
+/* HEADER BAR */
+.topbar{background:var(--navy);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.topbar .logo{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:14px;letter-spacing:.5px;text-transform:uppercase}
+.topbar .logo .bars{display:flex;flex-direction:column;gap:3px;background:var(--orange);padding:6px 8px;border-radius:4px}
+.topbar .logo .bars span{display:block;width:14px;height:2px;background:#fff;border-radius:1px}
+.topbar .tool-name{color:#fff;font-size:16px;font-weight:600;display:flex;align-items:center;gap:8px}
+.topbar .back-link{color:rgba(255,255,255,.6);font-size:13px;text-decoration:none;transition:color .2s}
+.topbar .back-link:hover{color:#fff}
+
+/* HERO */
+.hero{background:linear-gradient(180deg,var(--navy) 0%,var(--navy-light) 100%);text-align:center;padding:40px 20px 48px;color:#fff}
+.hero .badge{display:inline-block;background:var(--teal);color:#fff;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 18px;border-radius:20px;margin-bottom:16px}
+.hero h1{font-size:clamp(28px,5vw,40px);margin-bottom:8px}
+.hero h1 .emoji{font-style:normal}
+.hero p{color:rgba(255,255,255,.7);font-size:14px;max-width:600px;margin:0 auto}
+
+/* MAIN CONTENT */
+.main{max-width:1100px;margin:0 auto;padding:32px 20px 60px}
+
+/* TWO COL LAYOUT */
+.two-col{display:grid;grid-template-columns:420px 1fr;gap:24px;align-items:start}
+@media(max-width:860px){.two-col{grid-template-columns:1fr}}
+
+/* LEFT PANEL - INPUTS */
+.panel{background:var(--card);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.panel-title{font-size:18px;font-weight:700;margin-bottom:20px}
+.form-group{margin-bottom:18px}
+.form-label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--sub);margin-bottom:6px}
+.form-label .highlight{color:var(--orange);font-weight:700}
+.form-input{width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:8px;font-size:15px;font-family:inherit;background:#FAFBFC;transition:border .2s}
+.form-input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(26,138,110,.12)}
+select.form-input{appearance:none;background:#FAFBFC url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B7B8D' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right 12px center;padding-right:32px}
+.form-hint{font-size:11px;color:var(--sub);margin-top:4px}
+.input-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:500px){.input-row{grid-template-columns:1fr}}
+
+/* SLIDER */
+input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:3px;background:var(--border);outline:none;margin:8px 0 4px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--orange);cursor:pointer;border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.range-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--sub)}
+
+/* PRESETS */
+.presets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.preset-btn{padding:7px 14px;border:1px solid var(--border);border-radius:6px;background:var(--card);font-size:12px;font-family:inherit;cursor:pointer;transition:all .15s;font-weight:500}
+.preset-btn:hover{border-color:var(--teal);color:var(--teal)}
+.preset-btn.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+
+/* DEBT LIST */
+.debt-item{background:#FAFBFC;border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:10px;position:relative}
+.debt-item .debt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.debt-item .debt-grid.three{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:500px){.debt-item .debt-grid,.debt-item .debt-grid.three{grid-template-columns:1fr}}
+.debt-item label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--sub);margin-bottom:4px;display:block}
+.debt-item input,.debt-item select{width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit;background:#fff}
+.debt-item input:focus,.debt-item select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(26,138,110,.1)}
+.debt-item select{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236B7B8D' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right 8px center;padding-right:24px}
+.btn-remove-debt{position:absolute;top:8px;right:8px;background:none;border:none;color:var(--sub);cursor:pointer;font-size:18px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.btn-remove-debt:hover{background:#FDECEA;color:var(--red)}
+.btn-add{display:flex;align-items:center;gap:6px;background:none;border:1px dashed var(--border);border-radius:8px;padding:10px;width:100%;font-size:13px;color:var(--teal);cursor:pointer;font-family:inherit;justify-content:center;transition:all .15s;margin-top:4px}
+.btn-add:hover{background:#E8F5EE;border-color:var(--teal)}
+
+/* CALCULATE BUTTON */
+.btn-calc{display:block;width:100%;padding:15px;background:var(--orange);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .2s;margin-top:20px}
+.btn-calc:hover{background:var(--orange-dark);transform:translateY(-1px)}
+
+/* RIGHT PANEL - RESULTS */
+.results-col{display:flex;flex-direction:column;gap:16px}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat-card{border-radius:var(--radius);padding:18px 16px}
+.stat-card.primary{background:var(--teal);color:#fff}
+.stat-card.secondary{background:var(--navy);color:#fff}
+.stat-card.outline{background:var(--card);border:1px solid var(--border)}
+.stat-card .label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;opacity:.8}
+.stat-card .value{font-family:'Fraunces',serif;font-size:clamp(22px,3vw,28px);font-weight:700;margin-top:4px}
+.stat-card .detail{font-size:12px;opacity:.7;margin-top:2px}
+
+/* WINNER BADGE */
+.method-toggle{display:flex;gap:2px;background:var(--border);border-radius:8px;padding:2px;margin-bottom:12px}
+.method-toggle button{flex:1;padding:10px;border:none;border-radius:6px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .15s;background:transparent;color:var(--sub)}
+.method-toggle button.active{background:var(--card);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.method-toggle button.winner::after{content:" ✓";color:var(--teal);font-weight:700}
+
+/* CHART */
+.chart-panel{background:var(--card);border-radius:var(--radius);padding:20px;border:1px solid var(--border);box-shadow:var(--shadow)}
+.chart-title{font-size:16px;font-weight:700;margin-bottom:16px}
+.chart-area{display:flex;align-items:flex-end;gap:3px;height:200px}
+.chart-bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
+.chart-bar .seg{width:100%;border-radius:2px 2px 0 0}
+.chart-bar .seg.principal{background:var(--navy)}
+.chart-bar .seg.interest{background:var(--orange);border-radius:2px 2px 0 0}
+.chart-bar .yr{font-size:9px;color:var(--sub);margin-top:4px;white-space:nowrap}
+.chart-legend{display:flex;gap:16px;margin-top:12px;font-size:12px;color:var(--sub)}
+.chart-legend span{display:flex;align-items:center;gap:5px}
+.chart-legend .dot{width:12px;height:12px;border-radius:2px}
+
+/* AMORTIZATION TABLE */
+.amort-panel{background:var(--card);border-radius:var(--radius);padding:20px;border:1px solid var(--border);box-shadow:var(--shadow)}
+.amort-panel h3{font-size:16px;font-weight:700;margin-bottom:12px}
+.amort-table{width:100%;border-collapse:collapse;font-size:13px}
+.amort-table th{text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--sub);padding:8px 10px;border-bottom:2px solid var(--border)}
+.amort-table td{padding:8px 10px;border-bottom:1px solid var(--border)}
+.amort-table tr:last-child td{border-bottom:none}
+.amort-table .red{color:var(--red)}
+.amort-table .green{color:var(--teal);font-weight:600}
+.amort-scroll{max-height:320px;overflow-y:auto}
+
+/* MILESTONE STRIP */
+.milestone-strip{display:flex;flex-direction:column;gap:8px}
+.ms-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#FAFBFC;border-radius:8px;border:1px solid var(--border);font-size:13px}
+.ms-item .ms-icon{font-size:20px;flex-shrink:0}
+.ms-item .ms-name{font-weight:600;flex:1}
+.ms-item .ms-date{color:var(--sub);font-size:12px}
+.ms-item.final{background:#E8F5EE;border-color:#A8D5BA}
+.ms-item.final .ms-name{color:var(--teal)}
+
+/* STRATEGY BOX */
+.strategy-box{background:linear-gradient(135deg,#EBF0FA,#F0E8FB);border:1px solid #D0C4E8;border-radius:var(--radius);padding:20px;margin-top:8px}
+.strategy-box h3{color:#4A3578;font-size:16px;margin-bottom:10px}
+.strategy-box ol{padding-left:18px;font-size:13px;color:#3A2963}
+.strategy-box ol li{margin-bottom:8px;line-height:1.5}
+.strategy-box ol li strong{color:#4A3578}
+
+/* BUDGET SNAPSHOT */
+.budget-snap{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.budget-row{display:flex;justify-content:space-between;font-size:13px;padding:3px 0}
+.budget-row.total{border-top:1px solid var(--border);margin-top:6px;padding-top:8px;font-weight:700;font-size:14px}
+.budget-row .neg{color:var(--sub)}
+.budget-bar{height:20px;border-radius:10px;overflow:hidden;display:flex;margin:10px 0 6px}
+.budget-bar div{height:100%}
+.budget-legend{display:flex;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--sub)}
+.budget-legend span{display:flex;align-items:center;gap:4px}
+.budget-legend .dot{width:8px;height:8px;border-radius:2px}
+
+/* HOW IT WORKS */
+.how-section{max-width:1100px;margin:48px auto 0;padding:0 20px}
+.how-section h2{text-align:center;font-size:24px;margin-bottom:24px}
+.how-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:600px){.how-grid{grid-template-columns:1fr}}
+.how-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.how-card .num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:var(--teal);color:#fff;font-size:13px;font-weight:700;margin-bottom:10px}
+.how-card h3{font-size:15px;font-weight:700;margin-bottom:6px}
+.how-card p{font-size:13px;color:var(--sub);line-height:1.5}
+
+/* FAQ */
+.faq-section{max-width:1100px;margin:48px auto 0;padding:0 20px}
+.faq-section h2{text-align:center;font-size:24px;margin-bottom:24px}
+.faq-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden}
+.faq-q{padding:16px 20px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;user-select:none}
+.faq-q::before{content:"▼";font-size:10px;color:var(--sub);transition:transform .2s}
+.faq-item.open .faq-q::before{transform:rotate(180deg)}
+.faq-a{padding:0 20px 16px;font-size:13px;color:var(--sub);line-height:1.6;display:none}
+.faq-item.open .faq-a{display:block}
+
+/* RELATED TOOLS */
+.related-section{max-width:1100px;margin:48px auto 0;padding:0 20px}
+.related-section h2{font-size:24px;margin-bottom:20px}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:600px){.related-grid{grid-template-columns:1fr}}
+.related-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:all .15s}
+.related-card:hover{box-shadow:var(--shadow);border-color:var(--teal)}
+.related-card .icon{font-size:28px;margin-bottom:8px}
+.related-card h3{font-size:15px;font-weight:700;margin-bottom:4px}
+.related-card p{font-size:12px;color:var(--sub)}
+
+/* EXPORT */
+.export-row{display:flex;gap:8px;margin-top:12px}
+.btn-sm{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;cursor:pointer;background:var(--card);color:var(--text);transition:all .15s}
+.btn-sm:hover{border-color:var(--teal);color:var(--teal)}
+
+/* FOOTER */
+footer{text-align:center;padding:40px 20px;font-size:12px;color:var(--sub);border-top:1px solid var(--border);margin-top:48px;max-width:1100px;margin-left:auto;margin-right:auto}
+
+/* QUOTE */
+.quote{text-align:center;padding:24px;margin-top:16px}
+.quote .q{font-family:'Fraunces',serif;font-size:16px;font-style:italic;color:var(--orange)}
+.quote .a{font-size:11px;color:var(--sub);margin-top:4px}
+
+/* HIDE/SHOW */
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="logo">
+    <div class="bars"><span></span><span></span><span></span></div>
+    UTANG FREE PH
+  </div>
+  <div class="tool-name">Utang Free PH</div>
+  <a href="#" class="back-link">&larr; All Tools</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">Philippine Debt Payoff Calculator</div>
+  <h1>Utang Free PH <span class="emoji">&#128176;</span></h1>
+  <p>Debt-free date &middot; Avalanche vs Snowball &middot; Personalized strategy &middot; Required salary</p>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <!-- INTRO -->
+  <div style="text-align:center;max-width:700px;margin:0 auto 32px">
+    <h2 style="font-size:22px;margin-bottom:8px">Philippine Debt Payoff Calculator</h2>
+    <p style="font-size:14px;color:var(--sub)">Utang Free PH is a free debt payoff calculator built specifically for Filipinos. Whether you have credit card debt from BDO, BPI, or Metrobank, a GCash GCredit balance, or a Pag-IBIG loan, this tool computes your optimal payoff strategy, compares Avalanche vs Snowball methods, and shows your exact debt-free date.</p>
+    <p style="font-size:14px;color:var(--sub);margin-top:8px">Enter your salary, list your debts, and hit Calculate. No account needed. No data is ever sent to our servers.</p>
+  </div>
+
+  <div class="two-col">
+    <!-- LEFT: INPUTS -->
+    <div>
+      <!-- SALARY -->
+      <div class="panel" style="margin-bottom:16px">
+        <div class="panel-title">Your Income</div>
+        <div class="form-group">
+          <label class="form-label">Monthly gross salary</label>
+          <input type="number" class="form-input" id="salary" placeholder="e.g. 35,000">
+          <div class="form-hint">Before SSS, PhilHealth, Pag-IBIG, and tax deductions</div>
+        </div>
+        <div class="input-row">
+          <div class="form-group">
+            <label class="form-label">Monthly rent / housing</label>
+            <input type="number" class="form-input" id="rent" placeholder="e.g. 8,000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Monthly essentials</label>
+            <input type="number" class="form-input" id="essentials" placeholder="e.g. 12,000">
+            <div class="form-hint">Food, transpo, bills, load</div>
+          </div>
+        </div>
+        <div id="budgetArea"></div>
+      </div>
+
+      <!-- DEBTS -->
+      <div class="panel">
+        <div class="panel-title">Your Debts</div>
+        <div class="presets" id="quickPresets">
+          <button class="preset-btn" onclick="addQuickDebt('BDO Card','','bdo','')">+ BDO Card</button>
+          <button class="preset-btn" onclick="addQuickDebt('BPI Card','','bpi','')">+ BPI Card</button>
+          <button class="preset-btn" onclick="addQuickDebt('GCredit','','gcash','')">+ GCredit</button>
+          <button class="preset-btn" onclick="addQuickDebt('Maya Credit','','maya','')">+ Maya</button>
+          <button class="preset-btn" onclick="addQuickDebt('Home Credit','','homecredit','')">+ Home Credit</button>
+        </div>
+        <div id="debtList"></div>
+        <button class="btn-add" onclick="addDebt()">+ Add another debt</button>
+
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
+          <div class="form-label">When do you want to start paying?</div>
+          <div class="input-row">
+            <div>
+              <select class="form-input" id="startMonth">
+                <option value="0">January</option><option value="1">February</option><option value="2">March</option>
+                <option value="3">April</option><option value="4">May</option><option value="5">June</option>
+                <option value="6">July</option><option value="7">August</option><option value="8">September</option>
+                <option value="9">October</option><option value="10">November</option><option value="11">December</option>
+              </select>
+            </div>
+            <div>
+              <select class="form-input" id="startYear">
+              </select>
+            </div>
+          </div>
+          <div class="form-hint">Your first payment month. Milestones and debt-free dates will use this as the starting point.</div>
+        </div>
+
+        <button class="btn-calc" onclick="calculate()">Calculate Payoff Plan</button>
+      </div>
+    </div>
+
+    <!-- RIGHT: RESULTS -->
+    <div class="results-col" id="resultsCol">
+      <div id="resultPlaceholder" style="text-align:center;padding:60px 20px;color:var(--sub)">
+        <div style="font-size:48px;margin-bottom:12px">&#128200;</div>
+        <p style="font-size:15px;font-weight:500">Your results will appear here</p>
+        <p style="font-size:13px;margin-top:4px">Add your salary and debts, then click Calculate</p>
+      </div>
+      <div id="resultContent" class="hidden"></div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="how-section">
+  <h2>How the Debt Payoff Calculator Works</h2>
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="num">1</div>
+      <h3>Enter Your Income</h3>
+      <p>Input your monthly salary, rent, and essentials. We auto-compute your SSS, PhilHealth, Pag-IBIG, and tax deductions to determine your real available budget for debt payoff.</p>
+    </div>
+    <div class="how-card">
+      <div class="num">2</div>
+      <h3>Add Your Debts</h3>
+      <p>List each debt with its balance and minimum payment. Choose from preset rates for Philippine banks (BDO, BPI, Metrobank), digital lenders (GCash, Maya, BillEase), or government loans (SSS, Pag-IBIG).</p>
+    </div>
+    <div class="how-card">
+      <div class="num">3</div>
+      <h3>Compare Methods</h3>
+      <p>See side-by-side results for Avalanche (highest interest first) vs Snowball (smallest balance first). The calculator shows which saves more money and which gives faster emotional wins.</p>
+    </div>
+    <div class="how-card">
+      <div class="num">4</div>
+      <h3>Get Your Strategy</h3>
+      <p>Receive a personalized payoff plan with milestone dates, payment priorities, and actionable tips — including when to consider balance transfers and how to build an emergency fund alongside debt payoff.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-section">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-item open" onclick="this.classList.toggle('open')">
+    <div class="faq-q">What is the Avalanche vs Snowball method?</div>
+    <div class="faq-a"><strong>Avalanche:</strong> Pay off the debt with the highest interest rate first. This saves you the most money over time. <strong>Snowball:</strong> Pay off the smallest balance first. This gives you quick wins that build motivation. Both methods require paying all minimum payments first, then throwing extra money at your priority debt. Mathematically, Avalanche almost always wins — but Snowball works better psychologically for many people.</div>
+  </div>
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">What are the typical credit card interest rates in the Philippines?</div>
+    <div class="faq-a">Most Philippine banks charge 1.85%-2.5% per month (approximately 22%-30% annually) on unpaid credit card balances. The BSP cap is 3% per month (36% annually). Digital lenders like GCash GCredit (5%/month) and BillEase (3.49%/month) tend to charge significantly higher rates. Always check your latest statement for your actual rate.</div>
+  </div>
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">How much of my salary should go to debt payments?</div>
+    <div class="faq-a">Financial advisors recommend keeping total debt payments (including rent/mortgage) below 36% of your gross income. For unsecured debt like credit cards and personal loans, aim for under 20%. If your debt payments exceed 50% of take-home pay, consider debt consolidation or speaking with a financial counselor.</div>
+  </div>
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">Should I save or pay debt first?</div>
+    <div class="faq-a">Build a small emergency fund first (₱5,000-₱10,000) to avoid taking on new debt when emergencies happen. Then aggressively pay down high-interest debt (anything above 2%/month). Once high-interest debt is cleared, split your extra money between building a full 3-month emergency fund and paying off remaining low-interest debt.</div>
+  </div>
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">Is my data safe?</div>
+    <div class="faq-a">Yes. All calculations happen entirely in your browser using JavaScript. Your salary, debt balances, and personal information are never sent to any server. Nothing is stored — when you close the tab, the data is gone. Use the Download CSV button to save a backup.</div>
+  </div>
+</div>
+
+<!-- RELATED TOOLS -->
+<div class="related-section">
+  <h2>Related Tools</h2>
+  <div class="related-grid">
+    <div class="related-card">
+      <div class="icon">&#128176;</div>
+      <h3>NetPay PH</h3>
+      <p>Calculate your take-home pay after SSS, PhilHealth, Pag-IBIG, and tax deductions.</p>
+    </div>
+    <div class="related-card">
+      <div class="icon">&#127968;</div>
+      <h3>HomeLoan PH</h3>
+      <p>Compute monthly amortization, total interest, and required salary for Philippine mortgages.</p>
+    </div>
+    <div class="related-card">
+      <div class="icon">&#128202;</div>
+      <h3>FreelanceTax PH</h3>
+      <p>Compare 8% flat rate vs graduated income tax for freelancers and self-employed Filipinos.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Estimates only. Consult a financial advisor for official guidance. Does not include late fees, penalties, or other charges.</p>
+  <p style="margin-top:6px">Utang Free PH — Built for Filipinos. All data stays in your browser.</p>
+</footer>
+
+<script>
+const P={
+  custom:{l:'Custom rate',r:2.0},bdo:{l:'BDO Credit Card',r:2.0},bpi:{l:'BPI Credit Card',r:1.85},
+  metrobank:{l:'Metrobank Card',r:2.0},rcbc:{l:'RCBC Card',r:2.0},security:{l:'Security Bank',r:2.0},
+  unionbank:{l:'UnionBank Card',r:2.0},eastwest:{l:'EastWest Card',r:2.5},gcash:{l:'GCash GCredit',r:5.0},
+  maya:{l:'Maya Credit',r:3.5},billease:{l:'BillEase',r:3.49},cashalo:{l:'Cashalo',r:4.0},
+  tala:{l:'Tala',r:5.0},homecredit:{l:'Home Credit',r:2.79},sss:{l:'SSS Salary Loan',r:0.83},
+  pagibig:{l:'Pag-IBIG MP Loan',r:0.875},personal:{l:'Bank Personal Loan',r:1.5}
+};
+let did=0,curSch=null;
+const $=id=>document.getElementById(id);
+const peso=n=>'₱'+Math.round(n).toLocaleString('en-PH');
+function mText(m){const y=Math.floor(m/12),mo=m%12;if(!y)return mo+' month'+(mo!==1?'s':'');if(!mo)return y+' year'+(y!==1?'s':'');return y+'yr '+ mo+'mo';}
+function getStartDate(){
+  const m=parseInt($('startMonth').value)||0;
+  const y=parseInt($('startYear').value)||new Date().getFullYear();
+  return new Date(y,m,1);
+}
+function fDate(months){
+  const s=getStartDate();
+  s.setMonth(s.getMonth()+months);
+  return s.toLocaleDateString('en-PH',{month:'long',year:'numeric'});
+}
+function fDateShort(months){
+  const s=getStartDate();
+  s.setMonth(s.getMonth()+months);
+  return s.toLocaleDateString('en-PH',{month:'short',year:'numeric'});
+}
+
+// Populate start date dropdowns
+(function initStartDate(){
+  const now=new Date();
+  $('startMonth').value=now.getMonth();
+  const ySel=$('startYear');
+  for(let y=now.getFullYear();y<=now.getFullYear()+5;y++){
+    const o=document.createElement('option');o.value=y;o.textContent=y;
+    if(y===now.getFullYear()) o.selected=true;
+    ySel.appendChild(o);
+  }
+})();
+
+function calcDed(g){
+  let msc=Math.min(35000,Math.max(5000,Math.round(g/500)*500)),sss=msc*.05;
+  let ph=Math.min(5000,Math.max(500,g*.025)),pi=g<=1500?g*.01:Math.min(200,g*.02);
+  let tx=g-sss-ph-pi,tax=0;
+  if(tx>666667)tax=200833.33+(tx-666667)*.35;
+  else if(tx>166667)tax=40833.33+(tx-166667)*.32;
+  else if(tx>66667)tax=10833.33+(tx-66667)*.30;
+  else if(tx>33333)tax=2500+(tx-33333)*.25;
+  else if(tx>20833)tax=(tx-20833)*.20;
+  return{sss:Math.round(sss),ph:Math.round(ph),pi:Math.round(pi),tax:Math.round(tax),net:Math.round(g-sss-ph-pi-tax)};
+}
+
+// Budget display
+['salary','rent','essentials'].forEach(id=>$(id).addEventListener('input',showBudget));
+function showBudget(){
+  const g=parseFloat($('salary').value)||0;
+  if(g<5000){$('budgetArea').innerHTML='';return;}
+  const d=calcDed(g),r=parseFloat($('rent').value)||0,e=parseFloat($('essentials').value)||0;
+  const avail=d.net-r-e;
+  let h=`<div class="budget-snap" style="margin-top:12px">
+    <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:var(--navy)">Your monthly budget snapshot</div>
+    <div class="budget-row"><span>Gross salary</span><strong>${peso(g)}</strong></div>
+    <div class="budget-row neg"><span>&nbsp;&nbsp;SSS (employee share, 5%)</span><span>-${peso(d.sss)}</span></div>
+    <div class="budget-row neg"><span>&nbsp;&nbsp;PhilHealth (employee share, 2.5%)</span><span>-${peso(d.ph)}</span></div>
+    <div class="budget-row neg"><span>&nbsp;&nbsp;Pag-IBIG</span><span>-${peso(d.pi)}</span></div>
+    <div class="budget-row neg"><span>&nbsp;&nbsp;Withholding tax (TRAIN Law)</span><span>-${peso(d.tax)}</span></div>
+    <div class="budget-row" style="border-top:1px solid var(--border);padding-top:8px;margin-top:6px;font-weight:700"><span>Net take-home pay</span><span>${peso(d.net)}</span></div>
+    ${r?`<div class="budget-row neg"><span>&nbsp;&nbsp;Rent / housing</span><span>-${peso(r)}</span></div>`:''}
+    ${e?`<div class="budget-row neg"><span>&nbsp;&nbsp;Essentials (food, bills, transpo)</span><span>-${peso(e)}</span></div>`:''}
+    <div class="budget-row total" style="color:${avail>=0?'var(--teal)':'var(--red)'}"><span>Available for debt & savings</span><span>${peso(avail)}</span></div>`;
+  if(avail>0&&d.net>0){
+    const pctDebt=Math.round(Math.min(avail*.5,avail));
+    const rp=r/d.net*100,ep=e/d.net*100,dp=pctDebt/d.net*100,sp=Math.max(0,100-rp-ep-dp);
+    h+=`<div class="budget-bar"><div style="width:${rp}%;background:#E8A87C"></div><div style="width:${ep}%;background:#85B7EB"></div><div style="width:${dp}%;background:var(--orange)"></div><div style="width:${sp}%;background:var(--teal)"></div></div>
+    <div class="budget-legend"><span><div class="dot" style="background:#E8A87C"></div>Housing</span><span><div class="dot" style="background:#85B7EB"></div>Essentials</span><span><div class="dot" style="background:var(--orange)"></div>Debt</span><span><div class="dot" style="background:var(--teal)"></div>Savings</span></div>`;
+    h+=`<div style="margin-top:10px;font-size:13px;color:var(--navy)"><strong>Suggested debt payment:</strong> ${peso(pctDebt)}/month (50% of available). The other 50% goes to your emergency fund.</div>`;
+  } else if(avail<0) {
+    h+=`<div style="margin-top:10px;font-size:13px;color:var(--red)"><strong>Warning:</strong> Your expenses exceed your net pay by ${peso(Math.abs(avail))}. Consider reducing expenses or finding additional income before aggressively paying debt.</div>`;
+  }
+  h+='</div>';
+  $('budgetArea').innerHTML=h;
+}
+
+// Debts
+function addDebt(n='',b='',p='bdo',m=''){
+  const id=did++;
+  const div=document.createElement('div');div.className='debt-item';div.id='d'+id;
+  div.innerHTML=`<button class="btn-remove-debt" onclick="document.getElementById('d${id}').remove()">&times;</button>
+    <div class="debt-grid" style="margin-bottom:8px"><div><label>Debt name</label><input type="text" value="${n}" placeholder="e.g. BDO Visa" data-f="name"></div>
+    <div><label>Balance (₱)</label><input type="number" value="${b}" placeholder="50,000" data-f="bal" min="0"></div></div>
+    <div class="debt-grid three"><div><label>Type / Rate</label><select data-f="type">${Object.entries(P).map(([k,v])=>`<option value="${k}" ${k===p?'selected':''}>${v.l} (${v.r}%/mo)</option>`).join('')}</select></div>
+    <div><label>Rate %/month</label><input type="number" value="${P[p]?.r||2}" step="0.01" data-f="rate" min="0"></div>
+    <div><label>Min payment (₱)</label><input type="number" value="${m}" placeholder="2,500" data-f="min" min="0"></div></div>`;
+  div.querySelector('[data-f="type"]').addEventListener('change',function(){
+    div.querySelector('[data-f="rate"]').value=P[this.value]?.r||2;
+  });
+  $('debtList').appendChild(div);
+}
+function addQuickDebt(n,b,p,m){addDebt(n,b,p,m);}
+
+function getDebts(){
+  const ds=[];
+  document.querySelectorAll('.debt-item').forEach(d=>{
+    const n=d.querySelector('[data-f="name"]').value||'Untitled';
+    const b=parseFloat(d.querySelector('[data-f="bal"]').value)||0;
+    const r=parseFloat(d.querySelector('[data-f="rate"]').value)||0;
+    const m=parseFloat(d.querySelector('[data-f="min"]').value)||0;
+    if(b>0&&m>0)ds.push({name:n,balance:b,rate:r,minPay:m});
+  });
+  return ds;
+}
+
+// Simulate
+function sim(debts,extra,method){
+  let b=debts.map(d=>({...d,rem:d.balance,tInt:0,tPaid:0,poMonth:0}));
+  const sch=[];let mo=0;
+  while(b.some(d=>d.rem>0)&&mo<600){
+    mo++;let mI=0,mP=0;
+    b.forEach(d=>{if(d.rem>0){const i=d.rem*(d.rate/100);d.rem+=i;d.tInt+=i;mI+=i;}});
+    b.forEach(d=>{if(d.rem>0){const p=Math.min(d.minPay,d.rem);d.rem-=p;d.tPaid+=p;mP+=p;if(d.rem<=.5){d.rem=0;if(!d.poMonth)d.poMonth=mo;}}});
+    const act=b.filter(d=>d.rem>0);
+    method==='avalanche'?act.sort((a,c)=>c.rate-a.rate):act.sort((a,c)=>a.rem-c.rem);
+    let lft=extra;
+    for(const d of act){if(lft<=0)break;const p=Math.min(lft,d.rem);d.rem-=p;d.tPaid+=p;mP+=p;lft-=p;if(d.rem<=.5){d.rem=0;if(!d.poMonth)d.poMonth=mo;}}
+    sch.push({mo,int:Math.round(mI),prin:Math.round(mP),rem:Math.round(b.reduce((s,d)=>s+d.rem,0))});
+  }
+  return{months:mo,tInt:Math.round(b.reduce((s,d)=>s+d.tInt,0)),tPaid:Math.round(b.reduce((s,d)=>s+d.tPaid,0)),sch,po:b.map(d=>({name:d.name,month:d.poMonth}))};
+}
+
+// Calculate
+function calculate(){
+  const debts=getDebts();
+  if(!debts.length){alert('Add at least one debt with balance and minimum payment.');return;}
+  const g=parseFloat($('salary').value)||0,r=parseFloat($('rent').value)||0,e=parseFloat($('essentials').value)||0;
+  const ded=g>=5000?calcDed(g):null;
+  const avail=ded?ded.net-r-e:0;
+  const tMin=debts.reduce((s,d)=>s+d.minPay,0);
+  const extra=Math.max(0,avail>0?Math.round(avail*.5)-tMin:0);
+  const totalDebt=debts.reduce((s,d)=>s+d.balance,0);
+  const av=sim(debts,extra,'avalanche'),sn=sim(debts,extra,'snowball');
+  curSch={av,sn,extra,tMin};
+  const saved=sn.tInt-av.tInt;
+  const best=saved>=0?av:sn,bestN=saved>=0?'Avalanche':'Snowball';
+  const highest=debts.reduce((a,b)=>a.rate>b.rate?a:b);
+  const smallest=debts.reduce((a,b)=>a.balance<b.balance?a:b);
+  const reqSalary=Math.round((tMin+extra)*3);
+
+  let h='';
+
+  // Warning if no extra payment or methods identical
+  if(extra<=0){
+    h+=`<div style="background:#FFF7E6;border:1px solid #F0D9A0;border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;font-size:13px;color:#7A5C00">
+      <strong>No extra payment budget detected.</strong> Without extra money beyond minimums, both Avalanche and Snowball give the same result — there's nothing to redirect. Enter your salary and expenses above so we can calculate how much extra you can throw at debt each month.</div>`;
+  } else if(saved===0 && av.months===sn.months){
+    h+=`<div style="background:#EBF0FA;border:1px solid #C1D4EE;border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;font-size:13px;color:#1D4A85">
+      <strong>Both methods give the same result for your debts.</strong> This happens when your highest-rate debt is also your smallest balance — both methods target the same debt first. Try adding more debts to see the difference, or adjust balances.</div>`;
+  }
+
+  // Stats — these update when switching methods
+  h+=`<div class="stat-grid">
+    <div class="stat-card primary"><div class="label">Debt-free date</div><div class="value" id="sFreeDate">${fDate(best.months)}</div><div class="detail" id="sFreeDetail">${mText(best.months)} with ${bestN}</div></div>
+    <div class="stat-card secondary"><div class="label">Required salary</div><div class="value">${peso(reqSalary)}</div><div class="detail">Gross monthly (3x rule)</div></div>
+    <div class="stat-card outline"><div class="label">Total debt</div><div class="value">${peso(totalDebt)}</div><div class="detail">${debts.length} account${debts.length>1?'s':''}</div></div>
+    <div class="stat-card outline"><div class="label">Interest you'll save</div><div class="value" style="color:${Math.abs(saved)>0?'var(--teal)':'var(--sub)'}"><span id="sSaved">${Math.abs(saved)>0?peso(Math.abs(saved)):'₱0'}</span></div><div class="detail" id="sSavedDetail">${Math.abs(saved)>0?'with '+bestN+' method':'enter salary for extra payments'}</div></div>
+  </div>`;
+
+  // Show both method dates side by side
+  h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:-4px 0 12px">
+    <div style="background:${saved>=0?'var(--green-bg)':'#FAFBFC'};border:1px solid ${saved>=0?'#B7DFBF':'var(--border)'};border-radius:8px;padding:10px 14px;font-size:13px">
+      <div style="font-weight:700;color:${saved>=0?'var(--teal)':'var(--text)'}">Avalanche</div>
+      <div>${fDate(av.months)} <span style="color:var(--sub)">(${mText(av.months)})</span></div>
+      <div style="font-size:12px;color:var(--sub)">Interest: ${peso(av.tInt)}</div>
+    </div>
+    <div style="background:${saved<0?'var(--green-bg)':'#FAFBFC'};border:1px solid ${saved<0?'#B7DFBF':'var(--border)'};border-radius:8px;padding:10px 14px;font-size:13px">
+      <div style="font-weight:700;color:${saved<0?'var(--teal)':'var(--text)'}">Snowball</div>
+      <div>${fDate(sn.months)} <span style="color:var(--sub)">(${mText(sn.months)})</span></div>
+      <div style="font-size:12px;color:var(--sub)">Interest: ${peso(sn.tInt)}</div>
+    </div>
+  </div>
+  <div style="font-size:12px;color:var(--sub);margin:-4px 0 12px;text-align:right">Starting payments: ${fDate(0)}</div>`;
+
+  // Method toggle
+  h+=`<div class="chart-panel"><div class="method-toggle" id="mToggle">
+    <button class="${saved>=0?'active winner':''}" onclick="switchMethod('av',this)">Avalanche</button>
+    <button class="${saved<0?'active winner':''}" onclick="switchMethod('sn',this)">Snowball</button></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;font-size:13px">
+      <div><span style="color:var(--sub)">Total interest:</span> <strong id="mInt">${peso((saved>=0?av:sn).tInt)}</strong></div>
+      <div><span style="color:var(--sub)">Months to freedom:</span> <strong id="mMo">${(saved>=0?av:sn).months}</strong></div>
+    </div>
+    <div class="chart-title">Payment Breakdown Over Time</div>
+    <div class="chart-area" id="chartArea"></div>
+    <div class="chart-legend"><span><div class="dot" style="background:var(--navy)"></div>Principal</span><span><div class="dot" style="background:var(--orange)"></div>Interest</span></div>
+  </div>`;
+
+  // Milestones
+  h+=`<div class="amort-panel"><h3>Your Milestones</h3><div class="milestone-strip" id="milestones"></div></div>`;
+
+  // Strategy
+  h+=`<div class="strategy-box"><h3>Your Personalized Strategy</h3><ol>
+    <li><strong>Pay all minimums first</strong> — ${peso(tMin)}/month across all debts. Never miss a minimum.</li>
+    <li><strong>Throw extra ${peso(extra)} at ${saved>=0?highest.name:smallest.name}</strong> — ${saved>=0?`highest rate at ${highest.rate}%/mo. Killing it first saves the most interest.`:`smallest balance at ${peso(smallest.balance)}. Quick win to build momentum!`}</li>
+    <li><strong>Roll payments forward</strong> — once a debt is paid off, add its payment to the next target.</li>
+    ${highest.rate>=3?`<li><strong>Ask about balance transfer</strong> — ${highest.name} at ${highest.rate}%/mo is very expensive. Some banks offer 0% installment conversion.</li>`:''}
+    <li><strong>Build a ₱${Math.round((e||10000)*3).toLocaleString()} emergency fund</strong> alongside payoff — even ₱500/month prevents new debt from emergencies.</li>
+    <li><strong>Remove temptation</strong> — temporarily unlink GCredit and credit cards from shopping apps.</li>
+  </ol></div>`;
+
+  // Amortization
+  h+=`<div class="amort-panel"><h3>Amortization Summary</h3><div class="amort-scroll"><table class="amort-table" id="amortTable"><thead><tr><th>Month</th><th>Principal</th><th>Interest</th><th>Balance</th></tr></thead><tbody></tbody></table></div>
+  <div class="export-row"><button class="btn-sm" onclick="dlCSV()">&#8595; Download CSV</button><button class="btn-sm" onclick="window.print()">&#128424; Print plan</button></div></div>`;
+
+  // Quote
+  const qs=[{q:'"Ang taong walang utang, malaya ang buhay."',a:'Filipino proverb'},{q:'"The secret to getting ahead is getting started."',a:'Mark Twain'},{q:'"Every peso counts. Small payments lead to big freedom."',a:'Utang Free PH'}];
+  const q=qs[Math.floor(Math.random()*qs.length)];
+  h+=`<div class="quote"><div class="q">${q.q}</div><div class="a">— ${q.a}</div></div>`;
+
+  $('resultPlaceholder').classList.add('hidden');
+  $('resultContent').classList.remove('hidden');
+  $('resultContent').innerHTML=h;
+  switchMethod(saved>=0?'av':'sn',document.querySelector('.method-toggle button.active'));
+}
+
+function switchMethod(m,btn){
+  document.querySelectorAll('.method-toggle button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const d=curSch[m];
+  const methodName = m==='av'?'Avalanche':'Snowball';
+  $('mInt').textContent=peso(d.tInt);
+  $('mMo').textContent=d.months;
+  // Update debt-free date card
+  if($('sFreeDate')) $('sFreeDate').textContent=fDate(d.months);
+  if($('sFreeDetail')) $('sFreeDetail').textContent=mText(d.months)+' with '+methodName;
+  renderChart(d.sch);
+  renderAmort(d.sch,d.po);
+  renderMilestones(d.po,d.months);
+}
+
+function renderChart(sch){
+  const area=$('chartArea');if(!area)return;
+  const step=Math.max(1,Math.floor(sch.length/16));
+  const s=sch.filter((_,i)=>i%step===0||i===sch.length-1);
+  const mx=Math.max(...s.map(x=>x.int+x.prin));
+  let h='';
+  s.forEach(x=>{
+    const ih=mx>0?x.int/mx*180:0,ph=mx>0?x.prin/mx*180:0;
+    h+=`<div class="chart-bar"><div class="seg interest" style="height:${ih}px"></div><div class="seg principal" style="height:${ph}px"></div><div class="yr">M${x.mo}</div></div>`;
+  });
+  area.innerHTML=h;
+}
+
+function renderAmort(sch,po){
+  const tb=document.querySelector('#amortTable tbody');if(!tb)return;
+  let h='';
+  sch.forEach(s=>{
+    const paid=po.filter(p=>p.month===s.mo).map(p=>p.name);
+    h+=`<tr><td>${fDateShort(s.mo)}</td><td>${peso(s.prin)}</td><td class="red">${peso(s.int)}</td><td>${s.rem<=0?'<span class="green">DEBT FREE!</span>':peso(s.rem)}${paid.length?' <span class="green">'+paid.join(', ')+' paid off!</span>':''}</td></tr>`;
+  });
+  tb.innerHTML=h;
+}
+
+function renderMilestones(po,total){
+  const el=$('milestones');if(!el)return;
+  const sorted=[...po].sort((a,b)=>a.month-b.month);
+  const emojis=['&#127942;','&#11088;','&#128170;','&#9889;','&#127775;','&#128293;'];
+  let h='';
+  sorted.forEach((p,i)=>{
+    h+=`<div class="ms-item"><div class="ms-icon">${emojis[i%emojis.length]}</div><div class="ms-name">${p.name} — Paid off!</div><div class="ms-date">Month ${p.month} &middot; ${fDate(p.month)}</div></div>`;
+  });
+  h+=`<div class="ms-item final"><div class="ms-icon">&#127881;</div><div class="ms-name">COMPLETELY UTANG-FREE!</div><div class="ms-date">${fDate(total)}</div></div>`;
+  el.innerHTML=h;
+}
+
+function dlCSV(){
+  if(!curSch)return;
+  const m=document.querySelector('.method-toggle button.active')?.textContent?.includes('Avalanche')?'av':'sn';
+  const d=curSch[m];
+  let c='Month,Principal,Interest,Remaining\n';
+  d.sch.forEach(s=>{c+=`${s.mo},${s.prin},${s.int},${s.rem}\n`;});
+  const b=new Blob([c],{type:'text/csv'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download='utang-free-ph-payoff.csv';a.click();URL.revokeObjectURL(u);
+}
+
+// Init with sample debts that show real difference between methods
+addDebt('BDO Credit Card','50000','bdo','2500');
+addDebt('GCash GCredit','15000','gcash','1500');
+addDebt('SSS Salary Loan','8000','sss','800');
+</script>
+</body>
+</html>
